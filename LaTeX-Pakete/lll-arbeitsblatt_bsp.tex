@@ -1,0 +1,124 @@
+\documentclass[layout=lll,lsgseite]{lll-layout}
+
+% Layouts: lll, schule, scdigi 
+% Optionen: printlsg (Lösungen nach Aufgabe), lsgseite (Lösungsseite am Ende)
+
+\usepackage{lll-arbeitsblatt}
+
+\usepackage{listings}
+\lstset{	language = html, morecomment	= [s]{<!--}{-->}, alsodigit = {.:;}}
+
+
+\usepackage{blindtext}
+
+% ----------------------------------------------------------------------- Code
+% Codeschnipsel definieren und dann mit \readcode{test} verwenden.
+\begin{filecontents}{code/test.code}
+\begin{lstlisting}
+<html>
+	<h1>Hallo Welt</h1>
+	<!-- Ein Kommentar -->
+	foobar("String")
+</html>
+\end{lstlisting}
+
+\end{filecontents}
+
+% ----------------------------------------------------------------------- Infos
+\titel{Beispieldokument}
+\autor{\href{http://lehr-lern-labor.info}{Lehr-Lern-Labor Informatik}}
+\organisation{Beispiele - \lizenz}
+
+%\druckbereich
+% ----------------------------------------------------------------------- Inhalt
+\begin{document}
+\kasten[symb=\faInfo]{Merkkästen für wichtige Infos}{\blindtext}
+
+
+\kombi[symb=\faLightbulbO]{Hier findet man eine Übersicht über die verfügbaren Makros, die auch direkt Lösungen enthalten.}{
+	Lückentext:
+	
+	Ich bin eine \luecke{Lücke}.	
+	
+	Kariert:
+	
+	\kariert[2]{Eine Rechnung mit einer optionalen Kästchen-Anzahl (Höhe)}
+	
+	Liniert:
+	
+	\liniert[2]{eine bestimmte Anzahl leerer Linien für Freitext-Antworten}
+	
+	Blanko:
+	
+	\blanko[2]{freier Platz für individuelle Antworten (Angbabe in Zeilen)}
+}
+\kombi{auch mehrspaltiger Satz ist möglich:}{
+	\begin{spalten}
+		\kariert[3]{linke Spalte}
+		\liniert[2]{rechte Spalte}
+	\end{spalten}
+	\begin{spalten}[3]
+		\kariert[3]{linke Spalte}
+		\blanko[3]{mittlere Spalte}
+		\liniert[2]{rechte Spalte}
+	\end{spalten}
+}
+
+\newpage
+\kombi{\LaTeX kommt leider mit Code in Macros nicht zurecht. Daher werden code-Schnipsel in der Präambel definiert und in eigene Dateien geschrieben und dann mit dem Befehl \texttt{\textbackslash readcode\{name\}} eingelesen.}{\vspace{-4ex}
+%	\readcode{test}
+}
+
+\aufgabe{Kleinere Aufgaben werden am besten mithilfe von tasks gesetzt.}{
+	Beispielsweise zweispaltig:
+	\begin{tasks}(2)
+		\task Ein Aufgabenteil
+		\task Noch ein Aufgabenteil
+		\task ...
+		\task ...
+	\end{tasks}
+	
+	\auftrag[\faCheckSquareO]{Es können auch Symbole mitten im Text eingefügt werden.}
+	Oder auch mehrspaltig:
+	\begin{tasks}(3)
+		\task Ein Aufgabenteil
+		\task Noch ein Aufgabenteil
+		\task ...
+		\task ...
+	\end{tasks}
+}
+
+
+\loesung[symb=\faInfoCircle]{Die Aufgaben und Lösungen können durch fontawesome-Symbole hervorgehoben werden.}{
+	{\LARGE
+	\faEdit\ \faLink\ \faExternalLink\ \faLightbulbO\ \faBook\ \faPencil\ \faGroup\ \faCalendar\ \faCamera\ \faCheck\ \faCheckSquareO\ \faChild\ \faClipboard\ \faClockO\ \faCode\ \faCoffee\ \faComments\ \faCut\ \faDesktop\ \faEnvelope\ \faExclamation\ \faFemale\ \faMale\ \faGift\ \faGraduationCap\ \faHeadphones\ \faHeart\ \faInfo\ \faInfoCircle\ \faLaptop\ \faLeaf\ \faLeanpub\ \faLock\ \faMagic\ \faMapO\ \faMobile\ \faMusic\ \faSend\ \faPaintBrush\ \faPaw\ \faPhone\ \faPlug\ \faPuzzlePiece\ \faPowerOff\ \faPrint\ \faQrcode\ \faQuestion\ \faQuestionCircle\ \faQuestionCircleO\  \faRandom\ \faRocket\ \faSave\ \faStar\ \faStarO\ \faStarHalfO\ \faThumbsOUp\ \faTimes\ \faTrash\ \faTv\ \faVideoCamera\ \faYoutubePlay}
+	
+	vgl. \url{https://packages.oth-regensburg.de/ctan/fonts/fontawesome/doc/fontawesome.pdf}
+}
+
+\abschnitt[\faCode]{Überschriften für wichtige Abschnitte}
+\aufgabe*[pkt=2]{Aufgaben ohne Nummer}{bei Bedarf können auch Punkte vergeben werden.}
+
+\aufgabe[symb=\faYoutubePlay, qr=lehr-lern-labor.info]{Für Links zu Videos o.ä können QR-Codes verwendet werden.}{
+	\blindtext
+}
+
+
+
+\aufgabe[symb=none]{Evtl. werden folgende Listen benötigt:}{%
+\begin{spalten}
+	Single- oder Multiple-Choice
+	\begin{multiplechoice}
+		* Auswahl 1
+		* 2. Wahl
+		*[\faCircle] richtig
+	\end{multiplechoice}
+	Checklist
+	\begin{checklist}
+		* zu erledigen
+		* zu erledigen
+		*[\faCheckSquareO] erledigt
+	\end{checklist}
+	\end{spalten}
+}
+\end{document} 

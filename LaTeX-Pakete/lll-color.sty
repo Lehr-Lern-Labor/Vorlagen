@@ -1,0 +1,129 @@
+\ProvidesPackage{lll-color}
+\RequirePackage{xcolor}
+\RequirePackage{xkeyval}
+
+\def\val{}
+\def\nr{}
+\define@choicekey*+{color}{theme}[\val\nr]{lll,scdigi}{%
+	\ifcase\nr\relax
+		\@setcolorsmain{lll}{lll!15}{red}{red!15}
+		\@setcolorslayout{gray!50}{lll}
+		\@setcolorscode{lll}{scdigi}{kit}{white}
+	\or
+		\@setcolorsmain{scdigi}{scdigi!15}{red}{red!15}
+		\@setcolorslayout{gray!50}{scdigi}
+		\@setcolorscode{scdigi}{lll}{kit}{white}
+	\fi
+}{\@setcolortheme{#1}}
+\define@key{color}{highlight}[black]{\@setcolorhighlight{#1}}
+\define@key{color}{contrast}[gray]{\@setcolorcontrast{#1}}
+\newif\ifcolor@print
+\define@boolkey{color}{print}[true]{
+	\ifKV@color@print
+		\color@printtrue
+	\else
+		\color@printfalse
+	\fi
+}
+
+% ------------------------------------------------ vordefinierte Farben
+\definecolor{scdigi}{RGB}{86,156,214}
+\definecolor{grau}{RGB}{212,212,212}
+\definecolor{kit}{RGB}{0,150,130}
+\definecolor{lll}{RGB}{102,184,33}	
+
+% ------------------------------------------------ vordefinierte Themen
+\newcommand{\@setcolortheme}[1]{
+	% ----- Highlight
+	\colorlet{highlight}{#1}
+	\colorlet{background}{highlight!15}
+	
+	% ----- Contrast
+	\colorlet{contrast}{-#1}
+	\colorlet{contrastbg}{contrast!15}
+	
+	% ----- layout
+	\colorlet{lineatur}{highlight!50}
+	\colorlet{rahmen}{highlight}
+	
+	% ----- Quellcode
+	\colorlet{codeKeywords}{highlight}
+	\colorlet{codeComment}{lineatur}
+	\colorlet{codeString}{highlight}
+	\colorlet{codeBackground}{background}
+}
+
+\newcommand{\@setcolorsmain}[4]{%
+	% ----- Highlight
+	\colorlet{highlight}{#1}
+	\colorlet{background}{#2}
+	
+	% ----- Contrast
+	\colorlet{contrast}{#3}
+	\colorlet{contrastbg}{#4}
+}	
+
+\newcommand{\@setcolorslayout}[2]{%
+	% ----- layout
+	\colorlet{lineatur}{#1}
+	\colorlet{rahmen}{#2}
+}
+
+\newcommand{\@setcolorscode}[4]{%
+	% ----- Quellcode
+	\colorlet{codeKeywords}{#1}
+	\colorlet{codeComment}{#2}
+	\colorlet{codeString}{#3}
+	\colorlet{codeBackground}{#4}
+}
+\@setcolortheme{black!90}
+
+\newcommand{\@setcolorhighlight}[1]{
+	\colorlet{highlight}{#1}
+	\colorlet{background}{highlight!15}
+}
+
+\newcommand{\@setcolorcontrast}[1]{
+	\colorlet{highlight}{#1}
+	\colorlet{background}{highlight!15}
+}
+
+
+% ------------------------------------------------- Farbwahl ausführen
+\ProcessOptionsX<color>
+\ifcolor@print
+	\colorlet{highlight}{black!70}
+	\colorlet{background}{white}
+	
+	\colorlet{contrast}{black!40}
+	\colorlet{contrastbg}{white}
+	
+	\colorlet{lineatur}{black!50}
+	\colorlet{rahmen}{black}
+	
+	\colorlet{codeKeywords}{highlight}
+	\colorlet{codeComment}{lineatur}
+	\colorlet{codeString}{highlight}
+	\colorlet{codeBackground}{background}
+\fi
+
+% ------------------------------------------------- Test
+\newcommand{\printcolors}{
+\textcolor{highlight}{highlight\hrulefill}
+
+\textcolor{background}{background\hrulefill}
+
+\textcolor{contrast}{contrast\hrulefill}
+
+\textcolor{contrastbg}{contrastbg\hrulefill}
+
+\textcolor{lineatur}{lineatur\hrulefill}
+
+\textcolor{codeKeywords}{codeKeywords\hrulefill}
+
+\textcolor{codeComment}{codeComment\hrulefill}
+
+\textcolor{codeString}{codeString\hrulefill}
+
+\textcolor{codeBackground}{codeBackground\hrulefill}
+}

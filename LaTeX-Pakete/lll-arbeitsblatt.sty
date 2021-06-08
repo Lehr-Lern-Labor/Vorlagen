@@ -1,0 +1,291 @@
+\ProvidesPackage{lll-arbeitsblatt}
+\RequirePackage{xkeyval}
+
+\newif\ifprintlsg\printlsgfalse
+\newif\ifprintlsgpage\printlsgpagefalse
+
+\define@boolkey{ab}{printlsg}[true]{
+	\ifKV@ab@printlsg
+		\printlsgtrue
+	\else
+		\printlsgfalse
+	\fi
+}
+\define@boolkey{ab}{lsgseite}[true]{
+	\ifKV@ab@lsgseite
+		\printlsgpagetrue
+	\else
+		\printlsgpagefalse
+	\fi
+}
+
+\ProcessOptionsX<ab>
+
+\RequirePackage{lll-color} 
+\RequirePackage{fontawesome}
+\RequirePackage{graphicx}
+\RequirePackage{wrapfig}
+\RequirePackage{qrcode}
+\RequirePackage{tasks}
+\settasks{
+  label-width = 1em ,
+}
+\RequirePackage{calc}
+
+\newcommand{\notempty}[2]{%
+	\ifx\tmp#1%
+	\else
+		#2
+	\fi
+}
+
+\newcommand{\isempty}[3]{%
+	\def\temp{#1}\ifx\temp\empty%
+	  #2% empty
+	\else
+	  #3% non-empty
+	\fi
+}
+
+% --------------------------------------------------------- Schreiben in Datei
+\usepackage{newfile}
+
+\newoutputstream{loesung}
+\openoutputfile{\jobname.lsg}{loesung}
+
+\AtEndDocument{\closeoutputstream{loesung}}
+
+\AtEndDocument{%
+	\ifprintlsgpage
+		\newpage\let\@kopf\@titel
+		\setcounter{page}{1}
+		\def\@titel{\@kopf{} (Lösung)}
+		\input{\jobname.lsg}
+	\fi	
+}
+
+\newcommand{\readcode}[1]{\input{code/#1.code}}
+% --------------------------------------------------------- Aufgabe & Lösung
+\newcounter{aufgabe}
+\newcounter{punkte}
+\newif\ifloesung\loesungfalse
+
+\def\@symbheight{0.6cm}
+\newcommand{\@nummer}[2][highlight]{\resizebox{!}{\@symbheight}{\color{#1}\usefont{T1}{ugq}{b}{n}#2} }
+\newcommand{\@symbol}[2][highlight]{\makebox[0pt][r]{\resizebox{!}{\@symbheight}{\makebox[1.3em][c]{\color{#1}#2}} }}
+
+% ----- Kombi
+\def\kombi{\@ifstar\@kombi\@@kombi}
+
+\newcommand{\@kombi}[3][]{%
+	\@aufgabe[#1]{#2}{#3}%
+	\@loesung[#1,symb=\faCheck]{#2}{#3}%
+}
+
+\newcommand{\@@kombi}[3][]{%
+	\@@aufgabe[#1]{#2}{#3}%
+	\@@loesung[#1,symb=\faCheck]{#2}{#3}%
+}
+
+% ----- Aufgabe
+\def\@symbAuf{\faEdit}
+\def\@qr{}
+\def\@pkt{}
+\define@choicekey+{aufgabe}{symb}{none}{\renewcommand{\@symbol}[2][]{}}{\def\@symbAuf{#1}}
+\define@key{aufgabe}{qr}{\def\@qr{\qr{#1}}}
+\define@key{aufgabe}{privateqr}{\private{\def\@qr{\qr{#1}}}}
+\define@key{aufgabe}{publicqr}{\private[\def\@qr{\qr{#1}}]{}}
+\define@key{aufgabe}{pkt}{\def\@pkt{\makebox[0pt][l]{\makebox[\textwidth]{}\ \footnotesize#1\,P.}}\addtocounter{punkte}{#1}}
+
+
+\newskip\@skip\@skip=5ex plus 3ex minus 1.5ex
+
+\def\aufgabe{\@ifstar\@aufgabe\@@aufgabe}
+
+\newcommand{\@aufgabe}[3][]{% *
+\pagebreak[3]
+\begingroup
+	\vspace{\@skip}
+\rule{\textwidth}{0pt}\vspace{-2\baselineskip}
+
+	\setkeys{aufgabe}{#1}%
+	\@qr{}%
+	\@symbol{\@symbAuf}%
+	\@pkt%
+	\notempty{#2}{\textbf{#2}\\*[1ex]}#3\par
+\endgroup
+}
+
+\newcommand{\@@aufgabe}[3][]{%
+\pagebreak[3]
+\begingroup
+	\vspace{\@skip}
+\rule{\textwidth}{0pt}\vspace{-2\baselineskip}
+
+	\refstepcounter{aufgabe}\label{aufg:\theaufgabe}%
+	\setkeys{aufgabe}{#1}%
+	\@qr{}%
+	\@symbol{\@symbAuf}%
+	\@pkt%
+	\@nummer\theaufgabe%
+	\notempty{#2}{\textbf{#2}\\*[1ex]}#3\par
+\endgroup
+}
+
+% ----- Lösung
+\def\@symbLsg{\faCheck}
+\define@choicekey+{loesung}{symb}{none}{\renewcommand{\@symbol}[2][]{}}{\def\@symbLsg{#1}}
+\define@key{loesung}{qr}{\def\@qr{\qr{#1}}}
+\define@key{loesung}{pkt}{}
+
+
+\def\loesung{\@ifstar\@loesung\@@loesung}
+
+\newcommand{\Xprintloesung}[3][]{% *
+\pagebreak[3]
+\begingroup\loesungtrue
+	\vspace{\@skip}
+\rule{\textwidth}{0pt}\vspace{-2\baselineskip}
+
+	\setkeys{loesung}{#1}%
+	\@qr{}%
+	\@symbol[contrast]{\@symbLsg}%
+	\notempty{#2}{\textbf{#2}\\*[1ex]}#3\par
+\endgroup
+}
+
+\newcommand{\XXprintloesung}[3][]{%
+\pagebreak[3]
+\begingroup\loesungtrue
+	\vspace{\@skip}
+\rule{\textwidth}{0pt}\vspace{-2\baselineskip}
+
+	\setkeys{loesung}{#1}%
+	\@qr{}%
+	\@symbol[contrast]{\@symbLsg}%
+	\hyperref[aufg:\theaufgabe]{\@nummer[contrast]\theaufgabe}%
+	\notempty{#2}{\textbf{#2}\\*[1ex]}#3\par
+\endgroup
+}
+
+\newcommand{\@loesung}[3][]{% *
+	\ifprintlsg
+		\Xprintloesung[#1]{#2}{#3}
+	\fi
+	\begingroup
+	\catcode`\^^I=12
+	\addtostream{loesung}{%
+		\protect\setcounter{aufgabe}{\theaufgabe}%
+		\unexpanded{\Xprintloesung[#1]{#2}{#3}}
+	}
+	\endgroup
+}
+
+\newcommand{\@@loesung}[3][]{%
+	\ifprintlsg
+		\XXprintloesung[#1]{#2}{#3}
+	\fi
+	\begingroup
+	\catcode`\^^I=12
+	\addtostream{loesung}{%
+		\protect\setcounter{aufgabe}{\theaufgabe}%
+		\unexpanded{\XXprintloesung[#1]{#2}{#3}}
+	}
+	\endgroup
+}
+% ----- Aufträge mitten in der Aufgabe
+\newcommand{\auftrag}[2][\faEdit]{\@symbol{#1}\notempty{#2}{\textbf{#2}\\*[1ex]}}
+
+% ----- Überschriften mit Symbol
+\newcommand{\abschnitt}[2][\faEdit]{%
+	\vspace{\@skip}
+	\pagebreak[3]
+\rule{\textwidth}{0pt}\vspace{-2\baselineskip}
+
+	\auftrag[#1]{\color{highlight}\sffamily\Large#2}%
+}
+
+% --------------------------------------------------------- QR-Code
+% ----- QR-Codes
+\newcommand{\qr}[1]{%
+	\begin{wrapfigure}{r}{2.1cm}\vspace{-\intextsep}
+		\hfill\qrcode{#1}
+	\end{wrapfigure}%
+	\begingroup
+	\renewcommand{\thefootnote}{\faExternalLink} %\faLink
+	\footnotetext[1]{\url{#1}}
+	\endgroup
+}
+
+% --------------------------------------------------------- Listen
+\@beginparpenalty=10000
+% ----- Teilaufgaben
+\NewTasksEnvironment[label-width=15pt]{teilaufgabe}[*]
+
+% ----- Liste
+\NewTasksEnvironment[style=enumerate, label-width=15pt]{liste}[*]
+
+% ----- Items
+\NewTasksEnvironment[label=$\bullet$, label-width=15pt]{items}[*]
+
+% ----- Multiple Choice
+\NewTasksEnvironment[label-format={\centering}, label=\faCircleO,label-width=15pt]{multiplechoice}[*]
+
+% ----- Checklist
+\NewTasksEnvironment[label-format={\centering}, label=\ifloesung\faCheckSquareO\else\faSquareO\fi,label-width=15pt]{checklist}[*]
+
+% --------------------------------------------------------- integrierte Lösungen
+\newcommand{\@lsg}[1]{%
+	{\color{contrast}\Large{{\usefont{T1}{cmfr}{m}{n} #1}}}%
+}
+% ----- Lücke
+\usepackage[normalem]{ulem}
+\setlength{\ULdepth}{1pt}
+	
+\newcommand{\luecke}[2][]{%
+	\def\lsg{\ifloesung \@lsg{#2} \else \phantom{\@lsg{#2}} \fi}
+	\uline{%
+		\isempty{#1}{%
+			\makebox[\widthof{\lsg}*\real{1.5}]{%
+				\lsg
+			}%
+		}{%
+			\makebox[#1 em]{%
+				\lsg
+			}%
+		}
+	}
+}
+
+% ----- kariert
+
+\newlength{\offset}
+
+\newcommand{\kariert}[2][10]{
+	\begin{tikzpicture}[lineatur, step=0.5cm]		
+		\pgfmathtruncatemacro\anzahl{(\linewidth-\pgflinewidth)/0.5cm} % max Kästchen / Zeile
+		\setlength{\offset}{0.5cm*\anzahl}
+		\setlength{\offset}{\linewidth-\offset}
+		\setlength{\offset}{0.5\offset}
+		\draw [xshift=-\offset, use as bounding box](-\offset,\offset) grid (\linewidth-\offset-\pgflinewidth,-0.5cm*#1-\offset);
+		\node [anchor = north west,text width=\anzahl*0.5cm,xshift=-\offset] {\ifloesung\linespread{0.98}\selectfont\@lsg{\large#2}\par\fi};
+	\end{tikzpicture}%
+}
+
+% ----- liniert
+\newcommand{\liniert}[2][5]{
+	\begin{tikzpicture}[lineatur]
+		\path[use as bounding box] (0,0) rectangle (\linewidth,-#1*0.9cm-0.5\pgflinewidth);
+		\node [anchor = north west, text width=\linewidth, yshift=-9pt] {\ifloesung\linespread{1.765}\selectfont\@lsg{#2}\par\fi};
+		\foreach \n in {1,...,#1} \draw (0,-0.9cm*\n) -- (\linewidth,-0.9cm*\n);
+	\end{tikzpicture}%
+}
+
+% ----- freier Platz
+
+\newcommand{\blanko}[2][5]{
+	\begin{tikzpicture}[lineatur]
+		\path[use as bounding box] (0,0) rectangle (\linewidth,-#1*0.9cm-0.5\pgflinewidth);
+		\node [anchor = north west, text width=\linewidth, yshift=-9pt] {\ifloesung\linespread{1.765}\selectfont\@lsg{#2}\par\fi};
+	\end{tikzpicture}%
+}
