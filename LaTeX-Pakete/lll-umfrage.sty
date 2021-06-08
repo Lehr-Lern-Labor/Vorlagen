@@ -1,0 +1,356 @@
+\ProvidesPackage{lll-umfrage}[2021-01-22]
+
+
+% ---- Pakete
+\RequirePackage[inline]{enumitem}
+\RequirePackage{multicol}
+\RequirePackage{fontawesome}
+\RequirePackage{tabularx}
+\RequirePackage{expl3}
+\RequirePackage{pgffor}
+
+
+
+
+% ---- Hilfsfunktionen
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+\newcommand{\ifEmpty}[3]{%
+	\def\temp{#1}\ifx\temp\empty%
+		#2%
+	\else%
+		#3%
+	\fi%
+}
+	
+
+% ---- Zähler
+\newcounter{quest}
+\newcounter{qu}
+\newcounter{choice}
+
+% ---- Layout & Formatierung
+\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\quformat}[1]{%
+	\pagebreak[3]%
+	\refstepcounter{qu}%
+	\textbf{\thequ.~#1}%
+	\pagebreak[0]%
+}
+
+\newcommand{\optformat}[1]{{%
+	\par%
+	\scriptsize|\ \foreach \n in {#1} {\n\ |\ }%
+	\par%
+}}
+
+\newcommand{\frage}[1]{%
+	\quformat{#1}%
+	\par%
+}
+
+% - Längen definieren
+\newcommand{\inputWidth}{0.7\textwidth}
+\newcommand{\inputWidthFull}{0.9984\textwidth}
+\newcommand{\labelWidth}{\dimexpr(\textwidth-\inputWidth-5pt)}
+\newcommand{\matrixWidth}{\labelWidth}
+\newcommand{\inputHeight}{0.8\baselineskip}
+\newcommand{\boxWidth}{0.6\baselineskip}
+\newcommand{\columnSep}{2\baselineskip}
+
+% - Defaultwerte überschreiben
+\renewcommand{\LayoutTextField}[2]{#1#2}
+\renewcommand{\LayoutChoiceField}[2]{#1#2}
+\renewcommand{\DefaultWidthofText}{\inputWidth}
+\renewcommand{\DefaultWidthofChoiceMenu}{0.8\baselineskip}  
+
+
+
+% - Rahmen etc. formatieren
+\newcommand{\MakeDefaultField}[2]{%
+	\fboxsep=0pt%
+	\fbox{%
+		\vbox to #2{%
+			\hbox to #1{%
+				\hfill%
+			}%
+			\vfill%
+		}%
+	}%
+}
+
+\renewcommand{\MakeRadioField}[2]{%
+	\tikz\node[draw,circle,minimum size=\boxWidth,inner sep=0pt, outer sep=0pt]{};%
+}
+\renewcommand{\MakeCheckField}[2]{%
+	\MakeDefaultField{\boxWidth}{\boxWidth}%
+}
+\renewcommand{\MakeTextField}[2]{%
+	\raisebox{\dimexpr(0.75\baselineskip-#2)}{%
+		\MakeDefaultField{\inputWidth}{#2}%
+	}%
+}
+\renewcommand{\MakeChoiceField}[2]{%
+	\raisebox{\dimexpr(0.75\baselineskip-#2)}{%
+		\MakeDefaultField{\inputWidth}{#2}%
+	}%
+}
+
+% einfaches Antwortfeld - einfach
+\def\einfach{\@ifstar\@@einfach\@einfach}
+
+\newcommand{\@einfach}[2][]{%
+	\parbox[t]{\labelWidth}{%
+		#2%
+	}%
+	\hfill%
+	\TextField[bordercolor=black,name={#2},#1]{ }%
+	\par%
+}
+
+\newcommand{\@@einfach}[2][]{%
+	\begingroup%
+		\def\inputWidth{\inputWidthFull}%
+		\quformat{#2}%
+		\par%		
+		\TextField[bordercolor=black,name={#2},#1]{ }%
+		\par%
+	\endgroup%
+}
+
+% einfaches Antwortfeld mit mehreren Zeilen - freitext
+\def\freitext{\@ifstar\@@freitext\@freitext}
+
+\newcommand{\@freitext}[2][]{%
+	\parbox[t]{\labelWidth}{%
+		#2%
+	}%
+	\hfill%
+	\TextField[bordercolor=black,multiline,name={#2},#1]{ }%
+	\par%
+}
+
+\newcommand{\@@freitext}[2][]{%
+	\begingroup%
+		\def\inputWidth{\inputWidthFull}%
+		\quformat{#2}%
+		\par%
+		\TextField[bordercolor=black,multiline,name={#2},#1]{ }%
+		\par%
+	\endgroup%
+}
+
+% Dopdownmenü - auswahl
+\def\auswahl{\@ifstar\@@auswahl\@auswahl}
+
+\newcommand{\@auswahl}[3][]{%
+	\parbox[t]{\labelWidth}{%
+		#2%
+		\optformat{#3}%
+	}%
+	\hfill%
+	\ChoiceMenu[combo,bordercolor=black,name={#2},#1]{ }{#3}%
+	\par%
+}
+
+\newcommand{\@@auswahl}[3][]{%
+	\begingroup%
+		\def\inputWidth{\inputWidthFull}
+		\quformat{#2}
+		\optformat{#3}		
+		\ChoiceMenu[combo,bordercolor=black,name={#2},#1]{ }{#3}%
+		\par%
+	\endgroup%
+}
+
+
+% Singlechoice für Formular - einfachauswahl
+\def\einfachauswahl{\@ifstar\@@einfachauswahl\@einfachauswahl}
+
+\newcommand{\@einfachauswahl}[3][]{%
+	\begingroup%
+		\stepcounter{choice}%
+		\def\name{#2}%	
+		\parbox[t]{\labelWidth}{%
+			#2%
+		}%
+		\foreach \n in {#3} {\radiochoice[#1]{\n} \n\hfill}%
+		\par%
+	\endgroup%
+}
+
+\newcommand{\@@einfachauswahl}[3][]{%
+	\begingroup%
+		\stepcounter{choice}%
+		\def\name{#2}%	
+		\quformat{#2}%
+		\par%
+		\foreach \n in {#3} {\radiochoice[#1]{\n} \n\hfill}%
+		\par%
+	\endgroup%
+}
+
+% Multiplechoice für Formular - mehrfachauswahl
+\def\mehrfachauswahl{\@ifstar\@@mehrfachauswahl\@mehrfachauswahl}
+
+\newcommand{\@mehrfachauswahl}[3][]{%
+	\begingroup%
+		\stepcounter{choice}%
+		\def\name{#2}%	
+		\parbox[t]{\labelWidth}{%
+			#2%
+		}%
+		\foreach \n in {#3} {\checkchoice[#1]{\n} \n\hfill}%
+		\par%
+	\endgroup%
+}
+
+\newcommand{\@@mehrfachauswahl}[3][]{%
+	\begingroup%
+		\def\name{#2}%	
+		\quformat{#2}%
+		\par%
+		\foreach \n in {#3} {\checkchoice[#1]{\n} \n\hfill}%
+		\par%
+	\endgroup%
+}
+
+% Singlechoice-Umgebung - einfachliste
+\newenvironment{einfachliste}[2][]{%
+	\stepcounter{choice}%
+	\quformat{#2}%
+	\begin{itemize}[leftmargin=\baselineskip,labelsep=0pt,#1]%
+		\def\name{#2}%	
+		\let\option\radioitem%
+}{%
+	\end{itemize}%
+}
+
+\newenvironment{einfachliste*}[3][]{%
+	\begin{einfachliste}[#1]{#3}%
+		\setlength{\columnsep}{\columnSep}%
+		\begin{multicols}{#2}%
+			\raggedcolumns%
+}{%
+		\end{multicols}%
+	\end{einfachliste}%
+}
+
+
+% Multiplechoice-Umgebung - mehrfachliste
+\newenvironment{mehrfachliste}[2][]{%
+	\quformat{#2}%
+	\begin{itemize}[leftmargin=\baselineskip,labelsep=0pt,#1]%	
+		\def\name{#2}%	
+		\let\option\checkitem%
+}{%
+	\end{itemize}%
+}
+
+\newenvironment{mehrfachliste*}[3][]{%
+	\begin{mehrfachliste}[#1]{#3}%
+		\setlength{\columnsep}{\columnSep}%
+		\begin{multicols}{#2}%
+			\raggedcolumns%
+}{
+		\end{multicols}%
+	\end{mehrfachliste}%
+}
+
+
+
+
+
+
+\newcommand{\radioitem}[2][]{%
+	\item[%
+		\ifEmpty{#1}{%
+			\radiochoice{#2}%
+		}{%
+			\radiochoice{#2}%
+		}%
+	] #2%
+}
+
+
+\newcommand{\checkitem}[2][]{%
+	\item[%
+		\ifEmpty{#1}{%
+			\checkchoice{#2}%
+		}{%
+			\checkchoice{#1}%
+		}%
+	] #2%
+}
+
+\newcommand{\radiochoice}[2][]{{%
+	\ChoiceMenu[%
+		radio,%
+		name=\name,%
+		radiosymbol=\ding{55},%
+		bordercolor=,%
+		backgroundcolor=,%
+		#1%
+	]{ }{=#2}%
+}}
+
+\newcommand{\checkchoice}[2][]{{%
+	\stepcounter{choice}%
+	\CheckBox[%
+		name={#2},%
+		checkboxsymbol=\ding{55},%
+		bordercolor=black,%
+		#1
+	]{ } %
+}}
+
+
+
+
+
+
+\newenvironment{matrixfrage}[3][\matrixWidth]{%
+	\newcommand{\matrixitem}[2][]{%
+		\setcounter{quest}{0}
+		\ifEmpty{##1}{%
+			\global\def\name{ ##2}
+		}{%
+			\global\def\name{ ##1}
+		}%
+		##2\Repeat{#2}{&}\\%
+	}%
+	\let\option\matrixitem%
+	\tabularx{\textwidth}{%
+		@{}p{#1}%
+		*{#2}{%
+			@{}>{%
+				\centering%
+				\arraybackslash%
+				\stepcounter{quest}%
+				\makebox[0pt][c]{%
+					\radiochoice[name=\name]{%
+						\thequest%
+					}%
+				}%
+			}%
+			X@{}%
+		}%
+	}%
+	\quformat{#3}%
+}{%
+	\endtabularx%
+	\par%
+}
+
+\newcommand{\head}[1]{%
+	&\multicolumn{1}{@{}>{\arraybackslash}X@{}}{%
+		\parbox[b]{\hsize}{%
+			\centering%
+			\scriptsize%
+			#1%
+		}%
+	}%
+}

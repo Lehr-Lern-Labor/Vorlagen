@@ -1,0 +1,239 @@
+\documentclass[layout=lll]{lll-layout}
+% Optionen: printlsg (Lösungen nach Aufgabe), lsgseite (Lösungsseite am Ende)
+\usepackage{lll-umfrage}
+
+\titel{Umfrage}
+\datum{28.08.2020}
+
+\begin{document}
+\renewcommand{\matrixWidth}{0.55\textwidth}
+Alle deine Angaben werden anonymisiert. Wir werden also später nicht mehr feststellen können, wer welche Angaben gemacht hat.
+
+Schon jetzt vielen Dank für deine Teilnahme!
+
+\rule{\textwidth}{1pt}
+
+\begin{Form}
+\frage{Frage für Formulare}
+\einfach{Einfache Antwort}
+\freitext{Freitext}
+\auswahl{Auswahl}{Option 1, Option 2, Option 3}
+\einfachauswahl{Einfachauswahl}{Option 1, Option 2, Option 3}
+\mehrfachauswahl{Mehrfachauswahl}{Option 1, Option 2, Option 3}
+
+\einfach*{Einfache Antwort (ganzzeilig)}
+\freitext*{Freitext (ganzzeilig)}
+\auswahl*{Auswahl (ganzzeilig)}{Option 1, Option 2, Option 3}
+\einfachauswahl*[name=Einfachauswahl (ganzzeilig)]{Einfachauswahl\hfill(ganzzeilig)}{Option 1, Option 2, Option 3}
+\mehrfachauswahl*{Mehrfachauswahl (ganzzeilig)}{Option 1, Option 2, Option 3}
+
+\begin{einfachliste}{Singlechoice - einfachliste}
+	\option[Option 1]{Option 1\hfill *}
+	\option{Option 2}
+\end{einfachliste}
+
+\begin{einfachliste*}{2}{Singlechoice - einfachliste (ganzzeilig)}
+	\option{Option 1\hfill *}
+	\option{Option 2}
+	\option{Option 3}
+	\option{Option 4}
+	\option{Option 5}
+\end{einfachliste*}
+
+\begin{mehrfachliste}{Multiplechoice - mehrfachliste}
+	\option[Option 1]{Option 1\hfill *}
+	\option{Option 2}
+\end{mehrfachliste}
+
+\begin{mehrfachliste*}{2}{Multiplechoice - mehrfachliste (ganzzeilig)}
+	\option[Option 1]{Option 1\hfill *}
+	\option{Option 2}
+	\option{Option 3}
+	\option{Option 4}
+	\option{Option 5}
+\end{mehrfachliste*}
+
+\begin{matrixfrage}{5}{Matrixfrage}
+	\head{1}\head{2}\head{3}\head{4}\head{5}\\
+	\option[Option 1]{Option 1\hfill *}
+	\option{Option 2}
+	\option{Option 3}
+\end{matrixfrage}
+
+
+\end{Form}
+
+
+
+
+
+%\begin{Form}[action=mailto:?subject=Umfrage&body=Vielen Dank für Ihre Teilnahme! Bitte senden Sie das Formular an lehr-lern-labor@informatik.kit.edu.]
+%\begin{einfachsauwahl}{Warum ist die Banane krumm?}%
+%\begin{multicols}{3}
+%	\choice{Pinselstift}
+%	\choice{Bleistift}
+%	\choice{Radiergummi}
+%\end{multicols}
+%\end{einfachsauwahl}
+%
+%\begin{mehrfachliste}[noitemsep]{Warum ist die Erde keine Scheibe?}
+%	\choice{Pinselstift}
+%	\choice{Bleistift}
+%	\choice{Radiergummi}
+%\end{mehrfachliste}
+%
+%
+%%Vorname \TextField[bordercolor=black,multiline]{ }
+%%
+%%Vorname \TextField[bordercolor=black,name=sbvdlj]{ }
+%%
+%%\TextField[bordercolor=black]{Nachname}
+%%
+%%\TextField[bordercolor=black,multiline]{Nachname}
+%%
+%%\ChoiceMenu[combo]{Anrede}{Frau, Herr}
+%
+%\freitext{Das wollte ich loswerden:}
+%
+%\auswahl{Daher kenn ich euch:}{BNN, Schule, Freunde, Familie}
+%
+%\einfach{Wie heißt du?}
+%
+%
+%%\checkchoice{Erste Veranstaltung am KIT}
+%%
+%%\choosequestion{Wie alt bist du?}
+%%\choosechoice{0-100} \choosechoice{100-200} \choosechoice{200-300}
+%
+%
+%\blindtext
+%
+%\renewcommand{\matrixWidth}{0.5\textwidth}
+%
+%
+%\begin{matrixfrage}{3}
+%%\foreach \n in {#4}{&\multicolumn{1}{c}{\textbf{\n}}}\\
+%Welche Frage passt? \head{Top} \head{Naja}  \head{Mies}\\
+%\frage{Geht das so?}
+%\frage{Geht das auch so?}
+%\frage{Geht das so?}
+%\end{matrixfrage}
+%
+%\begin{matrixfrage}{4}
+%%\foreach \n in {#4}{&\multicolumn{1}{c}{\textbf{\n}}}\\
+%Welche Frage passt dieses Mal??\head{I} \head{II} \head{keine\par Angabe}  \head{III}\\
+%\frage{Geht das so?}
+%\frage{Geht das auch so?}
+%\frage{Geht das so?}
+%\end{matrixfrage}
+%
+%\Submit[export=pdf]{Absenden}
+%\end{Form}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\kasten[symb=\faInfo]{Merkkästen für wichtige Infos}{\blindtext}
+%
+%
+%\kombi[symb=\faLightbulbO]{Hier findet man eine Übersicht über die verfügbaren Makros, die auch direkt Lösungen enthalten.}{
+%	Lückentext:
+%	
+%	Ich bin eine \luecke{Lücke}.	
+%	
+%	Kariert:
+%	
+%	\kariert[2]{Eine Rechnung mit einer optionalen Kästchen-Anzahl (Höhe)}
+%	
+%	Liniert:
+%	
+%	\liniert[2]{eine bestimmte Anzahl leerer Linien für Freitext-Antworten}
+%	
+%	Blanko:
+%	
+%	\blanko[2]{freier Platz für individuelle Antworten (Angbabe in Zeilen)}
+%}
+%\kombi{auch mehrspaltiger Satz ist möglich:}{
+%	\begin{spalten}
+%		\kariert[3]{linke Spalte}
+%		\liniert[2]{rechte Spalte}
+%	\end{spalten}
+%	\begin{spalten}[3]
+%		\kariert[3]{linke Spalte}
+%		\blanko[3]{mittlere Spalte}
+%		\liniert[2]{rechte Spalte}
+%	\end{spalten}
+%}
+%
+%\newpage
+%\kombi{\LaTeX kommt leider mit Code in Macros nicht zurecht. Daher werden code-Schnipsel in der Präambel definiert und in eigene Dateien geschrieben und dann mit dem Befehl \texttt{\textbackslash readcode\{name\}} eingelesen.}{\vspace{-4ex}
+%	\readcode{test}
+%}
+%
+%\aufgabe{Kleinere Aufgaben werden am besten mithilfe von tasks gesetzt.}{
+%	Beispielsweise zweispaltig:
+%	\begin{tasks}(2)
+%		\task Ein Aufgabenteil
+%		\task Noch ein Aufgabenteil
+%		\task ...
+%		\task ...
+%	\end{tasks}
+%	
+%	\auftrag[\faCheckSquareO]{Es können auch Symbole mitten im Text eingefügt werden.}
+%	Oder auch mehrspaltig:
+%	\begin{tasks}(3)
+%		\task Ein Aufgabenteil
+%		\task Noch ein Aufgabenteil
+%		\task ...
+%		\task ...
+%	\end{tasks}
+%}
+%
+%
+%\loesung[symb=\faInfoCircle]{Die Aufgaben und Lösungen können durch fontawesome-Symbole hervorgehoben werden.}{
+%	{\LARGE
+%	\faEdit\ \faLink\ \faExternalLink\ \faLightbulbO\ \faBook\ \faPencil\ \faGroup\ \faCalendar\ \faCamera\ \faCheck\ \faCheckSquareO\ \faChild\ \faClipboard\ \faClockO\ \faCode\ \faCoffee\ \faComments\ \faCut\ \faDesktop\ \faEnvelope\ \faExclamation\ \faFemale\ \faMale\ \faGift\ \faGraduationCap\ \faHeadphones\ \faHeart\ \faInfo\ \faInfoCircle\ \faLaptop\ \faLeaf\ \faLeanpub\ \faLock\ \faMagic\ \faMapO\ \faMobile\ \faMusic\ \faSend\ \faPaintBrush\ \faPaw\ \faPhone\ \faPlug\ \faPuzzlePiece\ \faPowerOff\ \faPrint\ \faQrcode\ \faQuestion\ \faQuestionCircle\ \faQuestionCircleO\  \faRandom\ \faRocket\ \faSave\ \faStar\ \faStarO\ \faStarHalfO\ \faThumbsOUp\ \faTimes\ \faTrash\ \faTv\ \faVideoCamera\ \faYoutubePlay}
+%	
+%	vgl. \url{https://packages.oth-regensburg.de/ctan/fonts/fontawesome/doc/fontawesome.pdf}
+%}
+%
+%\abschnitt[\faCode]{Überschriften für wichtige Abschnitte}
+%\aufgabe*[pkt=2]{Aufgaben ohne Nummer}{bei Bedarf können auch Punkte vergeben werden.}
+%
+%\aufgabe[symb=\faYoutubePlay, qr=lehr-lern-labor.info]{Für Links zu Videos o.ä können QR-Codes verwendet werden.}{
+%	\blindtext
+%}
+%
+%
+%
+%\aufgabe[symb=none]{Evtl. werden folgende Listen benötigt:}{%
+%\begin{spalten}
+%	Single- oder Multiple-Choice
+%	\begin{multiplechoice}
+%		* Auswahl 1
+%		* 2. Wahl
+%		*[\faCircle] richtig
+%	\end{multiplechoice}
+%	Checklist
+%	\begin{checklist}
+%		* zu erledigen
+%		* zu erledigen
+%		*[\faCheckSquareO] erledigt
+%	\end{checklist}
+%	\end{spalten}
+%}
+\end{document} 

@@ -8,4 +8,8 @@ Aktuell sind folgende Vorlagen verfügbar:
   * LLL-Layout
   * Layout für Science Camp Digital
   * neutrales Layout
+  
+* Umfragen
+
+  (Möglicherweise kommt es zu Kompatibiltiätsproblemen mit unterschiedlichen PDF-Readern)
 
