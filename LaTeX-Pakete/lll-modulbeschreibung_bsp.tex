@@ -1,0 +1,72 @@
+\documentclass[layout=lll]{lll-layout}
+% Optionen: printlsg (Lösungen nach Aufgabe), lsgseite (Lösungsseite am Ende)
+\usepackage{lll-modulbeschreibung}
+
+\usepackage{blindtext}
+% ----------------------------------------------------------------------- Infos
+\titel{Workshopname}
+\thema{Thema}
+\klasse{ab Klasse X}
+\dauer{x Stunden}
+\gruppe{3-4}
+\autor{Autor(en)}
+\datum{\today}
+\bp{Bezug zum Bildungsplan, falls vorhanden}
+
+
+%\druckbereich
+% ----------------------------------------------------------------------- Inhalt
+\begin{document}
+\info
+
+\beschreibung
+Eine kurze Beschreibung des gesamten Workshops.
+
+\material{%
+	* Stift
+	* Papier
+	*[\faPlus] je SuS ein Aufgabenblatt
+}{%
+	* Laptop mit Beamer
+	* \texttt{Workshops\_Erklärung.ppt}
+}
+
+\ablauf{%
+	\phasenwechsel{Teil 1}
+	1	& 0:00
+	&	\phase{Begrüßung und Einführung}
+		\aussage{Formulierungsvorschlag}\n
+		Stichwortartige Beschreibung des Ablaufs
+	& 	PPT mit Beamer\n\folie{Titelfolie}
+	\\\hline
+	2	& 0:10
+	& 	\phase{Nächste Phase}
+	& 	Tafel\n 
+	\\\hline
+	\phasenwechsel{Optionale Ergänzung (ca. 30 min)}
+	5a	& (1:00)
+	&	\phase{Vertiefung 1}
+	& 	
+	\\\hline
+	5b	& (1:10)
+	&	\phase{Ergebnissicherung 1}
+	&	
+	\\\hline
+	5c	& (1:15)
+	&	\phase{Vertiefung 2}
+	&
+}
+
+\erlaeuterung{%
+	1 & \sus kommen und setzen sich
+	\\\hline
+	2 & Erläuterungen zu den einzelnen Phasen
+}
+
+\newpage
+\kommentar{%
+	1	& Didaktischer Kommentar zu den einzelnen Phasen.
+	\\\hline
+	2	& ...
+}
+\end{document} 

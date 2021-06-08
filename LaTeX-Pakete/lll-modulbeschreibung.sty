@@ -1,0 +1,112 @@
+\ProvidesPackage{lll-modulbeschreibung}
+\RequirePackage{lll-arbeitsblatt}
+
+\usepackage{tabularx}
+\usepackage{xltabular}
+\usepackage{colortbl}
+\usepackage{multirow}
+\renewcommand{\arraystretch}{1.3}
+\newcounter{@cols}
+
+\newcommand{\n}{\newline}
+
+\let\@settitle\titel
+\newcommand{\@titelkurz}{}
+\renewcommand{\titel}[1]{\@settitle{#1}\renewcommand{\@titelkurz}{#1 }}
+
+\autor{\href{lehr-lern-labor.info}{Lehr-Lern-Labor Informatik}}
+\organisation{Modul: \@titelkurz - \lizenz}
+
+\newcommand{\@autoren}{\@autor}
+\renewcommand{\autor}[1]{\renewcommand{\@autoren}{#1 }}
+
+\newcommand{\@thema}{}
+\newcommand{\thema}[1]{\renewcommand{\@thema}{#1}}
+
+\newcommand{\@klasse}{}
+\newcommand{\klasse}[1]{\renewcommand{\@klasse}{#1}}
+
+\newcommand{\@dauer}{}
+\newcommand{\dauer}[1]{\renewcommand{\@dauer}{#1}}
+
+\newcommand{\@gruppe}{}
+\newcommand{\gruppe}[1]{\renewcommand{\@gruppe}{#1}}
+
+\newcommand{\@bp}{}
+\newcommand{\bp}[1]{\renewcommand{\@bp}{#1}}
+
+\newcommand{\@format}[2][\faStarO]{\pagebreak[3]\abschnitt[#1]{#2}}
+\newcommand{\@emph}[1]{\textsc{#1}}
+
+\newcommand{\phase}[1]{\textbf{#1}\n}
+\newcommand{\aussage}[1]{\textit{\glqq{}#1\grqq{}}}
+\newcommand{\folie}[1]{[\texttt{#1}]}
+
+\usepackage{xspace}
+\newcommand{\sus}{SuS\xspace}
+
+\newcommand{\info}{%
+	\@format[\faBarChart]{Eckdaten}
+	\begin{tabularx}{\textwidth}{@{}>{\scshape}p{3.35cm}p{4cm}>{\scshape}p{3cm}X@{}}
+	Thema: & \@thema & Autor: &\@autoren\\
+	Zielgruppe: & \@klasse & Stand: &\@datum\\
+	Dauer: & \@dauer & Bildungsplan: &\multirow[t]{2}{=}{\@bp}\\
+	Gruppengröße: & \@gruppe & & \\
+	\end{tabularx}\par
+}
+
+\newcommand{\beschreibung}{\@format[\faBook]{Beschreibung}}
+
+\NewTasksEnvironment[label-format={\centering}, label=\faSquareO,label-width=10pt, label-offset=5pt,item-indent=17pt]{materialliste}[*]
+
+\newcommand{\material}[2]{%
+	\@format[\faScissors]{Material}\vspace{-5ex}
+	\begin{spalten}
+	\raggedright
+	SchülerInnen (je Gruppe)
+	\begin{materialliste}
+		#1
+	\end{materialliste}
+	\columnbreak
+	Dozent
+	\begin{materialliste}
+		#2
+	\end{materialliste}
+	\end{spalten}
+}
+
+\newcommand{\ablauf}[1]{%
+	\setcounter{@cols}{4}
+	\@format[\faClockO]{Ablauf}\vspace{-4ex}
+	\begin{xltabular}{\textwidth}{|c|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{4.5cm}|}
+	\hline
+	\rowcolor{background}\@emph{Phase} & \@emph{Zeit} & \@emph{Ablauf} & \@emph{Material}\\
+	\hline\endhead
+	#1\\
+	\hline
+	\end{xltabular}\par
+}
+
+\newcommand{\erlaeuterung}[1]{
+	\@format[\faEdit]{Erläuterungen}\vspace{-4ex}
+	\begin{xltabular}{\textwidth}{|c|>{\raggedright\arraybackslash}X|}
+	\hline
+	\rowcolor{background}\@emph{Phase} & \@emph{Erläuterung}\\
+	\hline\endhead
+	#1\\
+	\hline
+	\end{xltabular}\par
+}
+
+\newcommand{\kommentar}[1]{
+	\@format[\faGroup]{Didaktischer Kommentar}\vspace{-4ex}
+	\begin{xltabular}{\textwidth}{|c|>{\raggedright\arraybackslash}X|}
+	\hline
+	\rowcolor{background}\@emph{Phase} & \@emph{Didaktischer Kommentar}\\
+	\hline\endhead
+	#1\\
+	\hline
+	\end{xltabular}\par
+}
+
+\newcommand{\phasenwechsel}[1]{\multicolumn{\the@cols}{|c|}{\textbf{#1}}\\\hline}

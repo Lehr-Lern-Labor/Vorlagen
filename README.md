@@ -13,3 +13,5 @@ Aktuell sind folgende Vorlagen verfügbar:
 
   (Möglicherweise kommt es zu Kompatibiltiätsproblemen mit unterschiedlichen PDF-Readern)
 
+* Modulbeschreibungen
+
