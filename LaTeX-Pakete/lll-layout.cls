@@ -123,6 +123,7 @@
 
 \RequirePackage[skins]{tcolorbox}
 \RequirePackage{multicol}
+\RequirePackage{fontawesome}
 
 \RequirePackage[pdfborder={0 0 0}]{hyperref}
 
@@ -162,7 +163,9 @@
 
 \def\@iconKasten{\faLightbulbO}
 \define@choicekey+{kasten}{symb}{none}{\renewcommand{\@icon}[2][]{}}{\def\@iconKasten{#1}}%
-\newcommand{\kasten}[3][]{%
+\def\kasten{\@ifstar\@@kasten\@kasten}
+
+\newcommand{\@kasten}[3][]{%
 \begingroup
 	\vspace{2ex}%
 	\setkeys{kasten}{#1}%
@@ -176,6 +179,22 @@
 	]%
 	\@icon{\@iconKasten}%
 	\notempty{#2}{\textbf{#2}\\}#3\par
+	\end{tcolorbox}\vspace{1ex}
+\endgroup
+}
+
+\newcommand{\@@kasten}[1]{%
+\begingroup
+	\vspace{2ex}%
+	\begin{tcolorbox}[%
+		enhanced,
+		width=\textwidth,
+		drop fuzzy shadow southeast,
+		parbox=false,
+		colframe=highlight,
+		colback=background
+	]%
+	#1\par
 	\end{tcolorbox}\vspace{1ex}
 \endgroup
 }

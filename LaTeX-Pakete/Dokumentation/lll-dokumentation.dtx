@@ -16,9 +16,77 @@
 \end{document}
 %</driver>
 % \fi
+
+%\GetFileInfo{\jobname.sty}
+%
+%\title{LLL-Vorlagen}
+%
+%\author{Annika Vielsack (vielsack@kit.edu)}
+% 
+%\date{Stand: \today}
+%
+%\maketitle
+
+% Diese Sammlung von Vorlagen besteht aus der Klasse \texttt{lll-layout} und den zugehörigen Paketen. Jedes Paket bildet die Grundlage für einen Dokumententyp. Außerdem ist für jeden Dokumententyp eine Beispieldatei enthalten, die als Vorlage für neue Dokumente dient. Die Klasse \texttt{lll-layout} ist die Grundlage für alle LLL-Pakete und muss verwendet werden.
+
 % \section{Die Dokumentlasse \texttt{lll-layout}}
-% Alle Vorlagen basieren auf dieser Klasse. Sie stellt das grundlegende Layout zur Verfügung und muss verwendet werde, um die anderen Pakete benutzen zu können.
-% Die Dokumentklasse lädt das Paket \texttt{lll-color}. Die benötigten Paketoptionen können als Klassenoptionen übergeben werden.
+% Diese Dokumentklasse basiert auf \texttt{scrartcl} und bestimmt das zugrundeliegende Layout des Dokuments.
+
+% \subsection{Klassenoptionen}
+% Die Paketoptionen der einzelnen LLL-Pakete können bereits als Klassenoptionen übergeben werden und werden beim Laden der Pakete entsprechend übergeben. Daneben gibt es folgende Klassenoptionen:
+% \begin{macro}{layout}
+% Bestimmt das Gesamtlayout des Dokuments. Aktuell sind folgende Layouts verfügbar:
+% \begin{itemize}
+% 	\item[\texttt{lll}] universelles Layout für das LLL
+% 	\item[\texttt{scdigi}] Layout für das Science Camp Digital
+% 	\item[\texttt{schule}] schlichtes Layout für den Einsatz in der Schule
+% \end{itemize} 
+% \end{macro}
+% \begin{macro}{public}
+% Stellt den Modus auf \texttt{public}. 
+% \end{macro}
+% \begin{macro}{private}
+% Stellt den Modus auf \texttt{private}. 
+% \end{macro}
+
+% \subsection{Dokumentinformationen}
+% Bestimmte Dokumentinformationen werden ins Layout integriert. Manche Pakete erweitern diese Liste noch um zusätzliche Informationen. Diese sollten in der Präambel mittels \texttt{\textbackslash info\{wert\}} definiert werden und können bei Bedarf mittels \texttt{\textbackslash @info} abgerufen werden.
+% \begin{macro}{titel}
+% Titel des Dokuments; \texttt{\textbackslash @titel} enthält zusätzlich die aktuelle Seitenzahl
+% \end{macro}
+% \begin{macro}{organisation}
+% Vermerk für die interne Organisation; meist am rechten Seitenrand
+% \end{macro}
+% \begin{macro}{autor}
+% Der Autor des Dokuments
+% \end{macro}
+% \begin{macro}{datum}
+% Das angegebene Datum; standardmäßig das jeweils aktuelle Datum
+% \end{macro}
+% \begin{macro}{anmerkung}
+% Möglichkeit für eigene Anmerkungen; meist in der linken unteren Ecke
+% \end{macro}
+
+% \subsection{Makros}
+% \begin{macro}{\private}
+% Dieses Makro dient zur Unterscheidung zwischen öffentlichen und privaten Ausgaben:\\
+% \texttt{\textbackslash private[öffentlich]\{privat\}}
+% \end{macro}
+% \begin{macro}{\lizenz}
+% Lizenzvermerk; enthält standardmßig die Angaben für eine CCBY-Lizenz
+% \end{macro}
+% \begin{macro}{\kasten}
+% Ein bunter Kasten um Inhalte optisch hervorzuheben:\\ 
+% \texttt{\textbackslash kasten[symb=\textbackslash faEdit]\{Überschrift\}\{Inhalt\}}
+% \end{macro}
+% \begin{macro}{\kasten*}
+% Eine Variante des Kastens ohne Icon und Überschrift:\\
+% \texttt{\textbackslash kasten*\{Inhalt\}}
+% \end{macro}
+% \begin{macro}{\druckbereich}
+% Zeigt zu Debugging-Zwecken den druckbaren Bereich an. Optional kann die breite des druckbaren Bereichs mitangegeben werden:\\
+% \texttt{\textbackslash druckbereich[0.5cm]}
+% \end{macro}
 
 % \section{Das Paket \texttt{lll-color}}
 % Dieses Paket wird für die Farbgestaltung verwendet und stellt verschiedene Farben und ganze Farbschemata zur Verfügung. 
