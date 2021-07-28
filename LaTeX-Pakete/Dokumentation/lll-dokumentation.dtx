@@ -1,0 +1,100 @@
+% \iffalse meta-comment
+% Dokumentation der LLL-Klassen und Pakete.
+% 
+% Lehr-Lern-Labor Informatik Karlsruhe
+%
+% Verion 1.0, 2021-07-28
+%	Annika Vielsack vielsack@kit.edu
+%
+% \fi
+% \iffalse
+%<*driver>
+\ProvidesFile{lll-dokumentation.dtx}[1.0 Die LLL-Pakete]
+\documentclass{ltxdoc}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+% \section{Die Dokumentlasse \texttt{lll-layout}}
+% Alle Vorlagen basieren auf dieser Klasse. Sie stellt das grundlegende Layout zur Verfügung und muss verwendet werde, um die anderen Pakete benutzen zu können.
+% Die Dokumentklasse lädt das Paket \texttt{lll-color}. Die benötigten Paketoptionen können als Klassenoptionen übergeben werden.
+
+% \section{Das Paket \texttt{lll-color}}
+% Dieses Paket wird für die Farbgestaltung verwendet und stellt verschiedene Farben und ganze Farbschemata zur Verfügung. 
+
+% \subsection{Paketoptionen}
+% Folgende Paketoptionen werden unterstützt:
+% \begin{macro}{theme}
+% Aktuell werden die an die Layouts angepassten Farbschemata \texttt{lll} und \texttt{scdigi} bereitgestellt.
+% \end{macro}
+% \begin{macro}{highlight}
+% Verwendet \texttt{\textbackslash @setcolorhighlight} mit der übergebenen Farbe.
+% \end{macro}
+% \begin{macro}{contrast}
+% Verwendet \texttt{\textbackslash @setcolorcontrast} mit der übergebenen Farbe.
+% \end{macro}
+% \begin{macro}{print}
+% Ersetzt alle vordefinierten Farben durch Grautöne und passt die Farbgestaltung für den Druck an.
+% \end{macro}
+
+% \subsection{Bereitgestellte Farben}
+% Folgende Farben werden vordefiniert:
+% \begin{macro}{highlight}
+% Hauptsächliche Farbe für Hervorhebungen
+% \end{macro}
+% \begin{macro}{background}
+% Hintergrundfarbe, an \texttt{highlight} angepasst
+% \end{macro}
+% \begin{macro}{contrast}
+% Kontrast zu \texttt{highlight}, bspw. für das Hervorheben von Lösungen
+% \end{macro}
+% \begin{macro}{contrastbg}
+% Kontrastreiche Hintergrundfarbe, an \texttt{contrast} angepasst
+% \end{macro}
+% \begin{macro}{lineatur}
+% Farbe für Lineaturen
+% \end{macro}
+% \begin{macro}{rahmen}
+% Farbe für Rahmenlinien
+% \end{macro}
+% \begin{macro}{codeKeywords}
+% Farbe für Schlüsselwörter in Code-Umgebungen 
+% \end{macro}
+% \begin{macro}{codeComment}
+% Farbe für Kommentare in Code-Umgebungen 
+% \end{macro}
+% \begin{macro}{codeString}
+% Farbe für Strings in Code-Umgebungen 
+% \end{macro}
+% \begin{macro}{codeBackground}
+% Hintergrundfarbe in Code-Umgebungen 
+% \end{macro}
+
+% \subsection{Makros}
+% Folgende Makros werden durch das Paket bereitgestellt
+% \begin{macro}{\@setcolortheme}
+% Erstellt und verwendet ein neues Farbschema auf Basis einer Hauptfarbe. 
+% \end{macro}
+% \begin{macro}{\@setcolorsmain}
+% Verändert die Hauptfarben \texttt{highlight, background, contrast} und \texttt{contrastbg} anhand der vier übergebenen Argumente
+% \end{macro}
+% \begin{macro}{\@setcolorslayout}
+% Verändert die Farben \texttt{lineatur} und \texttt{rahmen} anhand der beiden übergebenen Argumente
+% \end{macro}
+% \begin{macro}{\@setcolorscode}
+% Verändert die Farben \texttt{codeKeywords, codeComment, codeString} und \texttt{codeBackground} anhand der vier übergebenen Argumente
+% \end{macro}
+% \begin{macro}{\@setcolorhighlight}
+% Verändert die Highlightfarben \texttt{highlight} und \texttt{background} anhand der beiden übergebenen Argumente
+% \end{macro}
+% \begin{macro}{\@setcolorcontrast}
+% Verändert die Kontrastfarben \texttt{contrast} und \texttt{contrastbg} anhand der beiden übergebenen Argumente
+% \end{macro}
+% \begin{macro}{\printcolors}
+% Gibt alle definierten Farben im Dokument aus
+% \end{macro}
+
+% \Finale
+%
+\endinput
