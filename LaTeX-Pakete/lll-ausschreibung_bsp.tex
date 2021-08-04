@@ -1,0 +1,63 @@
+\documentclass[layout=lll]{lll-layout}
+% Layouts: lll, schule, scdigi 
+
+\usepackage{lll-ausschreibung}
+%\usepackage[print]{lll-ausschreibung}	% E-Mail-Adressen werden im Text angegeben 
+
+%\druckbereich
+% ----------------------------------------------------------------------- Infos
+\titel{Titel der Ausschreibung}
+%\datum{\today}
+%\organisation{Alternative Randnotiz}
+
+% ----- Definition von Personen
+\def\pA{\person{Person 1}{E-Mail 1}{https://url1}}
+\def\pB{\person{Person 2}{E-Mail 2}{https://url2}}
+
+\betreuer{%
+	\pA und \pB
+}
+
+
+% ----------------------------------------------------------------------- Inhalt
+\begin{document}
+
+% ----- Beispiel Hiwistelle
+\hiwi{nach Absprache}
+
+\abschnitt{Hintergrund}
+Hier kann (muss aber nicht) eine kleine Einführung in die Problematik stehen.
+
+\abschnitt{Aufgaben}
+Beschreibung der Aufgaben
+
+\abschnitt{Voraussetzungen}
+Voraussetzungen in Stichworten
+\begin{itemize}
+	\item Interesse an der Arbeit mit Schüler:innen
+	\item Grundlegende Kenntnisse der Fachdidaktik Informatik, beispielsweise aus der Vorlesung \textit{Fachdidaktik Informatik 1}
+\end{itemize}
+
+\kontakt
+
+% ----- Beispiel Abschlussarbeit
+\abschlussarbeit{B.Ed. / M.Ed.}
+
+\abschnitt{Hintergrund}
+Hier kann (muss aber nicht) eine kleine Einführung in die Problematik stehen.
+
+\abschnitt{Ziel der Arbeit}
+Beschreibung der eigentlichen Aufgabe
+
+\abschnitt{Voraussetzungen}
+Voraussetzungen in Stichworten
+\begin{itemize}
+	\item Interesse an der Arbeit mit Schüler:innen
+	\item Grundlegende Kenntnisse der Fachdidaktik Informatik, beispielsweise aus der Vorlesung \textit{Fachdidaktik Informatik 1}
+\end{itemize}
+
+\LLL
+
+\kontakt[\pA]
+
+\end{document} 

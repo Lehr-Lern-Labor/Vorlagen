@@ -1,0 +1,95 @@
+\ProvidesPackage{lll-ausschreibung}
+\RequirePackage{xkeyval}
+
+\newif\ifprint\printfalse
+
+\define@boolkey{ab}{print}[true]{%
+	\ifKV@ab@print
+		\printtrue
+	\else
+		\printfalse
+	\fi
+}
+
+\ProcessOptionsX<ab>
+
+\RequirePackage{lll-color} 
+\RequirePackage{tabularx}
+\RequirePackage{xspace}
+\RequirePackage{fontawesome}
+
+\newcommand{\notempty}[2]{%
+	\ifx\tmp#1%
+	\else
+		#2
+	\fi
+}
+
+% ----- Layout-Anpassungen
+
+\pagenumbering{gobble}
+\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\abschnitt}[1]{%
+	\vspace{2.3ex \@plus.2ex}
+	\textbf{\color{highlight}\sffamily\Large#1}\par
+}
+
+% ----- Definition der Felder
+
+\newcommand{\person}[3]{% Name, Mail, Link
+	\ifprint
+		#1 (\href{mailto:#2}{#2})\xspace
+	\else
+		\href{#3}{\color{highlight}#1}\xspace
+	\fi
+	}
+
+\newcommand{\@betreuer}{}
+\newcommand{\betreuer}[1]{
+	\renewcommand{\@betreuer}{#1}
+}
+
+% ----- Informationen für Hiwi-Ausschreibungen
+
+\newcommand{\hiwi}[1]{%
+	\kasten*{
+		\begin{tabularx}{\textwidth}{@{}p{0.2\textwidth}X@{}}
+			Typ: & Hiwi\\
+			Stundenzahl: & #1\\
+			Datum: & \today\\
+			Ansprechpartner: & \@betreuer
+		\end{tabularx}\par
+	}	
+}
+
+% ----- Informationen für Abschlussarbeiten
+
+\newcommand{\abschlussarbeit}[1]{%
+	\kasten*{
+		\begin{tabularx}{\textwidth}{@{}p{0.2\textwidth}X@{}}
+			Typ: & Abschlussarbeit #1\\
+			Datum: & \today\\
+			Betreuer: & \@betreuer
+		\end{tabularx}\par
+	}
+}
+
+% ----- Vorlagen
+\newcommand{\kontakt}[1][\@betreuer]{%
+	\abschnitt{Kontakt}
+	Bei Interesse kontaktieren Sie bitte #1 für ein unverbindliches Informationsgespräch.
+}
+
+\newcommand{\LLL}{%
+	\abschnitt{Über uns}
+	\input{lll-aboutUs}
+}
+
+
+% ----- Titel immer automtisch ausgeben
+\AtBeginDocument{\abschnitt{\Huge\@titel}}
+
+% ----- Default-Werte
+\datum{\today}
+\organisation{Ausschreibung LLL - \@titel - Stand:~\@datum}
