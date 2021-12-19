@@ -129,6 +129,7 @@
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{\medskipamount}
+\newcommand{\@minipagerestore}{\setlength{\parskip}{\medskipamount}}
 
 % ----- Infos
 \def\@title{Titel}

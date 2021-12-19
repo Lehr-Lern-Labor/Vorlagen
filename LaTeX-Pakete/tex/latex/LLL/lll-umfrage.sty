@@ -34,10 +34,19 @@
 % ---- Layout & Formatierung
 \renewcommand{\familydefault}{\sfdefault}
 
-\newcommand{\quformat}[1]{%
+% - Format für Fragen
+\def\quformat{\@ifstar\@@quformat\@quformat}
+
+\newcommand{\@quformat}[1]{%
 	\pagebreak[3]%
 	\refstepcounter{qu}%
 	\textbf{\thequ.~#1}%
+	\pagebreak[0]%
+}
+
+\newcommand{\@@quformat}[1]{%
+	\pagebreak[3]%
+	\textbf{#1}%
 	\pagebreak[0]%
 }
 
@@ -47,8 +56,17 @@
 	\par%
 }}
 
-\newcommand{\frage}[1]{%
+
+% - Format für Fragen
+\def\frage{\@ifstar\@@frage\@frage}
+
+\newcommand{\@frage}[1]{%
 	\quformat{#1}%
+	\par%
+}
+
+\newcommand{\@@frage}[1]{%
+	\quformat*{#1}%
 	\par%
 }
 
@@ -177,8 +195,8 @@
 		\parbox[t]{\labelWidth}{%
 			#2%
 		}%
-		\foreach \n in {#3} {\radiochoice[#1]{\n} \n\hfill}%
-		\par%
+		\foreach \n in {#3} {\makebox[0pt][l]{\radiochoice[#1]{\n} \n}\hfill}%
+		\hfill\par%
 	\endgroup%
 }
 
@@ -188,8 +206,8 @@
 		\def\name{#2}%	
 		\quformat{#2}%
 		\par%
-		\foreach \n in {#3} {\radiochoice[#1]{\n} \n\hfill}%
-		\par%
+		\foreach \n in {#3} {\makebox[0pt][l]{\radiochoice[#1]{\n} \n}\hfill}%
+		\hfill\par%
 	\endgroup%
 }
 
@@ -203,8 +221,8 @@
 		\parbox[t]{\labelWidth}{%
 			#2%
 		}%
-		\foreach \n in {#3} {\checkchoice[#1]{\n} \n\hfill}%
-		\par%
+		\foreach \n in {#3} {\makebox[0pt][l]{\checkchoice[#1]{\n} \n}\hfill}%
+		\hfill\par%
 	\endgroup%
 }
 
@@ -213,8 +231,8 @@
 		\def\name{#2}%	
 		\quformat{#2}%
 		\par%
-		\foreach \n in {#3} {\checkchoice[#1]{\n} \n\hfill}%
-		\par%
+		\foreach \n in {#3} {\makebox[0pt][l]{\checkchoice[#1]{\n} \n}\hfill}%
+		\hfill\par%
 	\endgroup%
 }
 
@@ -287,6 +305,7 @@
 }
 
 \newcommand{\radiochoice}[2][]{{%
+	\hspace{-0.7ex}%
 	\ChoiceMenu[%
 		radio,%
 		name=\name,%
@@ -299,6 +318,7 @@
 
 \newcommand{\checkchoice}[2][]{{%
 	\stepcounter{choice}%
+	\hspace{-0.7ex}%
 	\CheckBox[%
 		name={#2},%
 		checkboxsymbol=\ding{55},%

@@ -207,13 +207,14 @@
 
 % --------------------------------------------------------- QR-Code
 % ----- QR-Codes
-\newcommand{\qr}[1]{%
-	\begin{wrapfigure}{r}{2.1cm}\vspace{-\intextsep}
-		\hfill\qrcode{#1}
+\newcommand{\qr}[2][]{%
+	\renewcommand{\@minipagerestore}{}
+	\begin{wrapfigure}[{#1}]{r}{2.1cm}\vspace{-\intextsep}
+		\hfill\qrcode{#2}
 	\end{wrapfigure}%
 	\begingroup
 	\renewcommand{\thefootnote}{\faExternalLink} %\faLink
-	\footnotetext[1]{\url{#1}}
+	\footnotetext[1]{\url{#2}}
 	\endgroup
 }
 
