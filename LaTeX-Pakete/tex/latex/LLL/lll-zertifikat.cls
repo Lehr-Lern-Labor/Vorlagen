@@ -36,11 +36,11 @@
 \newcommand{\titel}[1]{\def\@titel{#1\xspace}}
 
 \def\@format{Workshop\xspace}
-\newcommand{\format}[1]{\def\@format{#1\xspace}}
+\newcommand{\format}[2][am]{\def\@format{#1 #2\xspace}}
 
 
 \def\@datum{\today\xspace}
-\newcommand{\datum}[1]{\def\@datum{#1\xspace}}
+\newcommand{\datum}[2][am]{\def\@datum{#1 #2\xspace}}
 
 \newcommand{\zertifikat}[1]{
 	\null\vfill
@@ -51,7 +51,7 @@
 	{\fontsize{40}{48}\selectfont #1}%
 	\vspace{15ex}
 	
-	{\fontsize{20}{24}\selectfont hat am \@datum erfolgreich am \@format\\}%
+	{\fontsize{20}{24}\selectfont hat \@datum erfolgreich \@format\\}%
 	\vspace{5ex}
 	
 	{\fontsize{30}{48}\selectfont \@titel}%
