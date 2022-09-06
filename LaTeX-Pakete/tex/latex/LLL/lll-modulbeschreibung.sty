@@ -29,14 +29,20 @@
 \newcommand{\@dauer}{}
 \newcommand{\dauer}[1]{\renewcommand{\@dauer}{#1}}
 
-\newcommand{\@gruppe}{}
-\newcommand{\gruppe}[1]{\renewcommand{\@gruppe}{#1}}
+\newcommand{\@format}{}
+\newcommand{\format}[1]{\renewcommand{\@format}{#1}}
+
+\newcommand{\@vorwissen}{}
+\newcommand{\vorwissen}[1]{\renewcommand{\@vorwissen}{#1}}
+
+\newcommand{\@vorwissenlang}{}
+\newcommand{\vorwissenlang}[1]{\renewcommand{\@vorwissenlang}{#1}}
 
 \newcommand{\@bp}{}
 \newcommand{\bp}[1]{\renewcommand{\@bp}{#1}}
 
-\newcommand{\@format}[2][\faStarO]{\pagebreak[3]\abschnitt[#1]{#2}}
-\newcommand{\@emph}[1]{\textsc{#1}}
+\newcommand{\@abschnitt}[2][\faStarO]{\pagebreak[3]\abschnitt[#1]{#2}}
+\newcommand{\@emph}[1]{\textbf{#1}}
 
 \newcommand{\phase}[1]{\textbf{#1}\n}
 \newcommand{\aussage}[1]{\textit{\glqq{}#1\grqq{}}}
@@ -46,24 +52,26 @@
 \newcommand{\sus}{SuS\xspace}
 
 \newcommand{\info}{%
-	\@format[\faBarChart]{Eckdaten}
-	\begin{tabularx}{\textwidth}{@{}>{\scshape}p{3.35cm}p{4cm}>{\scshape}p{3cm}X@{}}
+	\@abschnitt[\faBarChart]{Eckdaten}
+	\begin{tabularx}{\textwidth}{@{}>{\bfseries}p{3.35cm}X>{\bfseries}p{3cm}X@{}}
 	Thema: & \@thema & Autor: &\@autoren\\
-	Zielgruppe: & \@klasse & Stand: &\@datum\\
-	Dauer: & \@dauer & Bildungsplan: &\multirow[t]{2}{=}{\@bp}\\
-	Gruppengröße: & \@gruppe & & \\
+	Klasse: & \@klasse & Stand: &\@datum\\
+	Dauer: & \@dauer & Bildungsplan: &\multirow[t]{3}{=}{\@bp}\\
+	Format: & \@format && \\
+	Vorwissen: & \@vorwissen &&\\
+	\multicolumn{4}{@{}p{\textwidth}@{}}{\@vorwissenlang}
 	\end{tabularx}\par
 }
 
-\newcommand{\beschreibung}{\@format[\faBook]{Beschreibung}}
+\newcommand{\beschreibung}{\@abschnitt[\faBook]{Beschreibung}}
 
 \NewTasksEnvironment[label-format={\centering}, label=\faSquareO,label-width=10pt, label-offset=5pt,item-indent=17pt]{materialliste}[*]
 
 \newcommand{\material}[2]{%
-	\@format[\faScissors]{Material}\vspace{-5ex}
+	\@abschnitt[\faScissors]{Material}\vspace{-5ex}
 	\begin{spalten}
 	\raggedright
-	SchülerInnen (je Gruppe)
+	Schüler:innen (je Gruppe)
 	\begin{materialliste}
 		#1
 	\end{materialliste}
@@ -77,7 +85,7 @@
 
 \newcommand{\ablauf}[1]{%
 	\setcounter{@cols}{4}
-	\@format[\faClockO]{Ablauf}\vspace{-4ex}
+	\@abschnitt[\faClockO]{Ablauf}\vspace{-4ex}
 	\begin{xltabular}{\textwidth}{|c|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{4.5cm}|}
 	\hline
 	\rowcolor{background}\@emph{Phase} & \@emph{Zeit} & \@emph{Ablauf} & \@emph{Material}\\
@@ -88,7 +96,7 @@
 }
 
 \newcommand{\erlaeuterung}[1]{
-	\@format[\faEdit]{Erläuterungen}\vspace{-4ex}
+	\@abschnitt[\faEdit]{Erläuterungen}\vspace{-4ex}
 	\begin{xltabular}{\textwidth}{|c|>{\raggedright\arraybackslash}X|}
 	\hline
 	\rowcolor{background}\@emph{Phase} & \@emph{Erläuterung}\\
@@ -99,7 +107,7 @@
 }
 
 \newcommand{\kommentar}[1]{
-	\@format[\faGroup]{Didaktischer Kommentar}\vspace{-4ex}
+	\@abschnitt[\faGroup]{Didaktischer Kommentar}\vspace{-4ex}
 	\begin{xltabular}{\textwidth}{|c|>{\raggedright\arraybackslash}X|}
 	\hline
 	\rowcolor{background}\@emph{Phase} & \@emph{Didaktischer Kommentar}\\
