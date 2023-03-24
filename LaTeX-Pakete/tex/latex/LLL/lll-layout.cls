@@ -49,7 +49,7 @@
 					\begin{tikzpicture}
 				      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
 				      	\draw [highlight, fill] (-0.5\paperwidth, 9.76) rectangle (0.5\paperwidth, 9.48);
-				      	\node [anchor=east] at (6.82,9.72) {\includegraphics[height=0.71cm]{img/lll_logo}};
+				      	\node [anchor=east] at (6.82,9.72) {\includegraphics[height=0.71cm]{img/lll-logo}};
 				      	\node [anchor=south west] at (6.86,-9.19) {\rotatebox{90}{\tiny\sffamily\@organisation}};
 				      	\node [anchor=north west] at (-6.72,-10.11) {\footnotesize\@anmerkung};
 				      	\node [anchor=west,highlight,fill=white] at (-6.04,9.57) {\normalfont\bfseries\sffamily\strut\@titel};
@@ -61,7 +61,7 @@
 					\begin{tikzpicture}
 				      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
 				      	\draw [highlight, fill] (-0.5\paperwidth,13.8) rectangle (0.5\paperwidth,13.4);
-				      	\node [anchor=east] at (9.64,13.75) {\includegraphics[height=1cm]{img/lll_logo}};
+				      	\node [anchor=east] at (9.64,13.75) {\includegraphics[height=1cm]{img/lll-logo}};
 				      	\node [anchor=south west] at (9.7,-13) {\rotatebox{90}{\tiny\sffamily\@organisation}};
 				      	\node [anchor=north west] at (-9.5,-14.3) {\footnotesize\@anmerkung};
 				      	\node [anchor=west,highlight,fill=white] at (-8.54,13.54) {\normalfont\bfseries\sffamily\strut\@titel};
@@ -76,7 +76,7 @@
 			\AddToShipoutPictureBG{%
 				\begin{tikzpicture}
 			      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
-			      	\node at (0,13) {\includegraphics[width=\paperwidth]{img/banner_schmal}};
+			      	\node at (0,13) {\includegraphics[width=\paperwidth]{img/lll-scdigi_banner}};
 			      	\node [rotate=90,anchor=north,white] at (9.7,13) {\tiny\sffamily\@datum}; 
 			      	\node [anchor=south west] at (9.7,-13) {\rotatebox{90}{\tiny\sffamily\@organisation}};
 			      	\node [anchor=north west] at (-9.5,-14.3) {\footnotesize\@anmerkung};
