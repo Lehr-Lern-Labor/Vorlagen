@@ -26,7 +26,7 @@
 	\begin{tikzpicture}
       	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
       	\draw [highlight, fill] (-0.5\paperwidth,9.8) rectangle (0.5\paperwidth,11.4);
-      	\node [anchor=east] at (9.44,11) {\includegraphics[height=3cm]{img/lll_logo}};
+      	\node [anchor=east] at (9.44,11) {\includegraphics[height=3cm]{img/lll-logo}};
     	\end{tikzpicture}
 }
 
@@ -67,10 +67,10 @@
 	Der Aufbau wird seit 01.09.2019 von der Vector Stiftung gefördert.
 	\end{minipage}\hfill
 	\begin{minipage}{0.15\textwidth}
-	\includegraphics[width=\textwidth]{img/kit_logo}\\
+	\includegraphics[width=\textwidth]{img/lll-kit_logo}\\
 	\vspace{-0.5ex}
 	
-	\includegraphics[width=\textwidth]{img/vector_logo}
+	\includegraphics[width=\textwidth]{img/lll-vector_logo}
 	\end{minipage}
 	\newpage
 }
