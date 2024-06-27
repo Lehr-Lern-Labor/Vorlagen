@@ -60,11 +60,11 @@
 				\AddToShipoutPictureBG{%
 					\begin{tikzpicture}
 				      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
-				      	\draw [highlight, fill] (-0.5\paperwidth,13.8) rectangle (0.5\paperwidth,13.4);
-				      	\node [anchor=east] at (9.64,13.75) {\includegraphics[height=1cm]{img/lll-logo}};
-				      	\node [anchor=south west] at (9.7,-13) {\rotatebox{90}{\tiny\sffamily\@organisation}};
-				      	\node [anchor=north west] at (-9.5,-14.3) {\footnotesize\@anmerkung};
-				      	\node [anchor=west,highlight,fill=white] at (-8.54,13.54) {\normalfont\bfseries\sffamily\strut\@titel};
+				      	\draw [highlight, fill] (-0.5\paperwidth,0.5\paperheight-1.05cm) rectangle (0.5\paperwidth,0.5\paperheight-1.45cm);
+				      	\node [anchor=east] at (0.5\paperwidth-0.86cm,0.5\paperheight-1.1cm) {\includegraphics[height=1cm]{img/lll-logo}};
+				      	\node [anchor=south west] at (0.5\paperwidth-0.8cm,-0.5\paperheight+1.85cm) {\rotatebox{90}{\tiny\sffamily\@organisation}};
+				      	\node [anchor=north west] at (-0.5\paperwidth+1cm,-0.5\paperheight+0.55cm) {\footnotesize\@anmerkung};
+				      	\node [anchor=west,highlight,fill=white] at (-0.5\paperwidth+1.96cm,0.5\paperheight-1.31cm) {\normalfont\bfseries\sffamily\strut\@titel};
 			    		\end{tikzpicture}
 				}
 			\fi%
@@ -132,7 +132,8 @@
 \iflayout@small
 	\RequirePackage[left=1.4cm, width=12.7cm, bottom=0.71cm]{geometry}
 \else
-	\RequirePackage[left=2cm,width=18cm,bottom=1cm]{geometry}
+	% \RequirePackage[left=2cm,width=18cm,bottom=1cm]{geometry}
+	\RequirePackage[left=2cm,right=1cm,bottom=1cm]{geometry}
 \fi
 \@setheader
 
