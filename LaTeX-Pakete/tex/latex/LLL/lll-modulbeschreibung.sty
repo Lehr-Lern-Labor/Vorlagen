@@ -45,7 +45,7 @@
 \newcommand{\@emph}[1]{\textbf{#1}}
 
 \newcommand{\phase}[1]{\textbf{#1}\n}
-\newcommand{\aussage}[1]{\textit{\glqq{}#1\grqq{}}}
+\newcommand{\aussage}[2][\hfill]{#1\textcolor{highlight}{\textit{\glqq{}#2\grqq{}}}}
 \newcommand{\folie}[1]{[\texttt{#1}]}
 
 \usepackage{xspace}
@@ -86,7 +86,7 @@
 \newcommand{\ablauf}[1]{%
 	\setcounter{@cols}{4}
 	\@abschnitt[\faClockO]{Ablauf}\vspace{-4ex}
-	\begin{xltabular}{\textwidth}{|c|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{4.5cm}|}
+	\begin{xltabular}{\textwidth}{|c|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{3.5cm}|}
 	\hline
 	\rowcolor{background}\@emph{Phase} & \@emph{Zeit} & \@emph{Ablauf} & \@emph{Material}\\
 	\hline\endhead
