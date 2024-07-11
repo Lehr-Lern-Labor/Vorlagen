@@ -23,10 +23,6 @@
 \newif\iflayout@private\layout@privatetrue
 \define@boolkey{layout}{public}[true]{\layout@privatefalse}
 \define@boolkey{layout}{private}[true]{\layout@privatetrue}
-\newif\iflayout@small\layout@smallfalse
-\define@boolkey{layout}{a5}[true]{\layout@smalltrue}
-\define@boolkey{layout}{a4}[true]{\layout@smallfalse}
-\define@boolkey{layout}{small}[true]{\layout@smalltrue}
 
 \newcommand{\private}[2][]{%
 	\iflayout@private%
@@ -39,63 +35,34 @@
 \def\val{}
 \def\nr{}
 \def\@setheader{}
-\define@choicekey{layout}{layout}[\val\nr]{lll,scdigi,schule}{%
+\define@choicekey{layout}{layout}[\val\nr]{lll,schule}{%
 	\ifcase\nr\relax%lll
 		\def\layout@theme{theme=lll}%
-		\def\@setheader{
-			\iflayout@small%
-				\geometry{top=1.6cm,headheight=25pt,headsep=1em}
-				\AddToShipoutPictureBG{%
-					\begin{tikzpicture}
-				      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
-				      	\draw [highlight, fill] (-0.5\paperwidth, 9.76) rectangle (0.5\paperwidth, 9.48);
-				      	\node [anchor=east] at (6.82,9.72) {\includegraphics[height=0.71cm]{img/lll-logo}};
-				      	\node [anchor=south west] at (6.86,-9.19) {\rotatebox{90}{\tiny\sffamily\@organisation}};
-				      	\node [anchor=north west] at (-6.72,-10.11) {\footnotesize\@anmerkung};
-				      	\node [anchor=west,highlight,fill=white] at (-6.04,9.57) {\normalfont\bfseries\sffamily\strut\@titel};
-			    		\end{tikzpicture}
-				}
-			\else%
-				\geometry{top=2.2cm,headheight=35pt,headsep=1em}
-				\AddToShipoutPictureBG{%
-					\begin{tikzpicture}
-				      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
-				      	\draw [highlight, fill] (-0.5\paperwidth,0.5\paperheight-1.05cm) rectangle (0.5\paperwidth,0.5\paperheight-1.45cm);
-				      	\node [anchor=east] at (0.5\paperwidth-0.86cm,0.5\paperheight-1.1cm) {\includegraphics[height=1cm]{img/lll-logo}};
-				      	\node [anchor=south west] at (0.5\paperwidth-0.8cm,-0.5\paperheight+1.85cm) {\rotatebox{90}{\tiny\sffamily\@organisation}};
-				      	\node [anchor=north west] at (-0.5\paperwidth+1cm,-0.5\paperheight+0.55cm) {\footnotesize\@anmerkung};
-				      	\node [anchor=west,highlight,fill=white] at (-0.5\paperwidth+1.96cm,0.5\paperheight-1.31cm) {\normalfont\bfseries\sffamily\strut\@titel};
-			    		\end{tikzpicture}
-				}
-			\fi%
-		}
-	\or%scdigi
-		\def\layout@theme{theme=scdigi}%
-		\def\@setheader{
-			\geometry{top=4cm,headheight=3.4cm,headsep=1em}
+		\def\@setheader{%
+			\geometry{top=2.2cm,headheight=35pt,headsep=1em}
 			\AddToShipoutPictureBG{%
 				\begin{tikzpicture}
-			      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
-			      	\node at (0,13) {\includegraphics[width=\paperwidth]{img/lll-scdigi_banner}};
-			      	\node [rotate=90,anchor=north,white] at (9.7,13) {\tiny\sffamily\@datum}; 
-			      	\node [anchor=south west] at (9.7,-13) {\rotatebox{90}{\tiny\sffamily\@organisation}};
-			      	\node [anchor=north west] at (-9.5,-14.3) {\footnotesize\@anmerkung};
-			      	\node [anchor=west, white] at (-8.68,13) {\normalfont\LARGE\bfseries\sffamily\strut\@titel};
-		    		\end{tikzpicture}
+					\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
+					\draw [highlight, fill] (-0.5\paperwidth,0.5\paperheight-1.05cm) rectangle (0.5\paperwidth,0.5\paperheight-1.45cm);
+					\node [anchor=east] at (0.5\paperwidth-0.86cm,0.5\paperheight-1.1cm) {\includegraphics[height=1cm]{img/lll-logo}};
+					\node [anchor=south west] at (0.5\paperwidth-0.8cm,-0.5\paperheight+1.85cm) {\rotatebox{90}{\tiny\sffamily\@organisation}};
+					\node [anchor=north west] at (-0.5\paperwidth+1.5cm,-0.5\paperheight+0.55cm) {\footnotesize\@anmerkung};
+					\node [anchor=west,highlight,fill=white] at (-0.5\paperwidth+1.5cm,0.5\paperheight-1.31cm) {\normalfont\bfseries\sffamily\strut\@titel};
+				\end{tikzpicture}
 			}
 		}
-	\or%Schule
+	\or%schule
 		\def\layout@theme{theme=scdigi}%
 		\def\@setheader{
-			\geometry{top=1.7cm,headsep=1em}
+			\geometry{top=2.2cm,headsep=1em,left=2cm}
 			\AddToShipoutPictureBG{%
 			   	\begin{tikzpicture}
 			      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
-			        \draw [rounded corners] (-10cm,-14.3cm) rectangle (9.8cm,14cm);
-			        \node [rounded corners, draw, minimum height=0.8cm, minimum width=7cm,anchor=west,fill=white,text width=6.3cm] at (-9.5,14){\strut\@titel};
-			      	\node [anchor=south east] at (9.5,14) {\footnotesize\@datum}; 
-			      	\node [anchor=south west] at (9.7,-13) {\rotatebox{90}{\tiny\sffamily\@organisation}};
-			      	\node [anchor=north west] at (-9.5,-14.3) {\footnotesize\@anmerkung};
+			        \draw [rounded corners] (-0.5\paperwidth+0.5cm,-0.5\paperheight+0.55cm) rectangle (0.5\paperwidth-0.7cm,0.5\paperheight-0.85cm);
+			        \node [rounded corners, draw, minimum height=0.8cm, minimum width=7cm,anchor=west,fill=white,text width=6.3cm] at (-0.5\paperwidth+1cm,0.5\paperheight-0.85cm){\strut\@titel};
+			      	\node [anchor=south east] at (0.5\paperwidth-1cm,0.5\paperheight-0.85cm) {\footnotesize\@datum};
+					\node [anchor=south west] at (0.5\paperwidth-0.8cm,-0.5\paperheight+1.85cm) {\rotatebox{90}{\tiny\sffamily\@organisation}};
+					\node [anchor=north west] at (-0.5\paperwidth+1cm,-0.5\paperheight+0.55cm) {\footnotesize\@anmerkung};
 			    \end{tikzpicture}
 			}	
 		}	
@@ -110,11 +77,7 @@
 %\DeclareOptionX*{\PackageWarning{lll-layout}{`\CurrentOption' ignored}} % geht...
 %\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrartcl}} % geht nicht...
 \ProcessOptionsX<layout>
-\iflayout@small
-	\PassOptionsToClass{12pt,a5paper}{scrartcl}
-\else
-	\PassOptionsToClass{12pt}{scrartcl}
-\fi
+\PassOptionsToClass{12pt}{scrartcl}
 \LoadClass{scrartcl} 
 
 \RequirePackage[ngerman]{babel}
@@ -129,12 +92,8 @@
 \renewcommand{\dateseparator}{.}
 \RequirePackage{eso-pic}
 
-\iflayout@small
-	\RequirePackage[left=1.4cm, width=12.7cm, bottom=0.71cm]{geometry}
-\else
-	% \RequirePackage[left=2cm,width=18cm,bottom=1cm]{geometry}
-	\RequirePackage[left=2cm,right=1cm,bottom=1cm]{geometry}
-\fi
+\RequirePackage{geometry}
+\geometry{left=1.5cm,right=1cm,bottom=1cm}
 \@setheader
 
 \RequirePackage{listings}

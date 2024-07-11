@@ -1,7 +1,8 @@
 \documentclass[layout=lll,lsgseite]{lll-layout}
 
-% Layouts: lll, schule, scdigi 
+% Layouts: lll, schule (Achtung: unterschiedliche Textbreite)
 % Optionen: printlsg (Lösungen nach Aufgabe), lsgseite (Lösungsseite am Ende)
+% Papiergröße/Orientierung: z.B. a5paper (a7 - a0), landscape
 
 \usepackage{lll-arbeitsblatt}
 
@@ -11,23 +12,29 @@
 
 \usepackage{blindtext}
 
+\newif\ifoverleaf
+% \overleaftrue	% Overleaf unterstütz filecontents nicht, daher muss der LaTeX-Code entsprechend angepasst werden.
 % ----------------------------------------------------------------------- Code
 % Codeschnipsel definieren und dann mit \readcode{test} verwenden.
-% \begin{filecontents}{code/test.code}
-% \begin{lstlisting}
-% <html>
-% 	<h1>Hallo Welt</h1>
-% 	<!-- Ein Kommentar -->
-% 	foobar("String")
-% </html>
-% \end{lstlisting}
+\ifoverleaf
+	\renewcommand{\readcode}[1]{\texttt{Code kann auf Overleaf nicht verarbeitet werden.}}
+\else
+	\begin{filecontents}{code/test.code}
+	\begin{lstlisting}
+	<html>
+		<h1>Hallo Welt</h1>
+		<!-- Ein Kommentar -->
+		foobar("String")
+	</html>
+	\end{lstlisting}
 
-% \end{filecontents}
-
+	\end{filecontents}
+\fi
 % ----------------------------------------------------------------------- Infos
 \titel{Beispieldokument}
 \autor{\href{http://lehr-lern-labor.info}{Lehr-Lern-Labor Informatik}}
 \organisation{Beispiele - \lizenz}
+\anmerkung{Eine Anmerkung}
 
 %\druckbereich
 % ----------------------------------------------------------------------- Inhalt
@@ -65,8 +72,8 @@
 }
 
 \newpage
-\kombi{\LaTeX kommt leider mit Code in Macros nicht zurecht. Daher werden code-Schnipsel in der Präambel definiert und in eigene Dateien geschrieben und dann mit dem Befehl \texttt{\textbackslash readcode\{name\}} eingelesen.}{\vspace{-4ex}
-%	\readcode{test}
+\kombi{\LaTeX kommt leider mit Code in Macros nicht zurecht. Daher werden code-Schnipsel in der Präambel definiert, dabei in eigene Dateien geschrieben und dann mit dem Befehl \texttt{\textbackslash readcode\{name\}} eingelesen.}{\vspace{-4ex}
+	\readcode{test}
 }
 
 \aufgabe{Kleinere Aufgaben werden am besten mithilfe von tasks gesetzt.}{
@@ -106,6 +113,7 @@
 
 
 \aufgabe[symb=none]{Evtl. werden folgende Listen benötigt:}{%
+\vspace*{-5ex}
 \begin{spalten}
 	Single- oder Multiple-Choice
 	\begin{multiplechoice}
