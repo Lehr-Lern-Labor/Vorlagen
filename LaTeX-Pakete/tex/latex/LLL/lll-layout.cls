@@ -24,8 +24,11 @@
 \define@boolkey{layout}{public}[true]{\layout@privatefalse}
 \define@boolkey{layout}{private}[true]{\layout@privatetrue}
 \newif\iflayout@small\layout@smallfalse
+\newif\iflayout@tiny\layout@tinyfalse
+\define@boolkey{layout}{a6}[true]{\layout@tinytrue}
 \define@boolkey{layout}{a5}[true]{\layout@smalltrue}
-\define@boolkey{layout}{a4}[true]{\layout@smallfalse}
+\define@boolkey{layout}{a4}[true]{\layout@smallfalse\layout@tinylfalse}
+\define@boolkey{layout}{tiny}[true]{\layout@tinytrue}
 \define@boolkey{layout}{small}[true]{\layout@smalltrue}
 
 \newcommand{\private}[2][]{%
@@ -44,7 +47,7 @@
 		\def\layout@theme{theme=lll}%
 		\def\@setheader{
 			\iflayout@small%
-				\geometry{top=1.6cm,headheight=25pt,headsep=1em}
+				\geometry{a5paper,top=1.6cm,headheight=25pt,headsep=1em}
 				\AddToShipoutPictureBG{%
 					\begin{tikzpicture}
 				      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
@@ -53,20 +56,34 @@
 				      	\node [anchor=south west] at (6.86,-9.19) {\rotatebox{90}{\tiny\sffamily\@organisation}};
 				      	\node [anchor=north west] at (-6.72,-10.11) {\footnotesize\@anmerkung};
 				      	\node [anchor=west,highlight,fill=white] at (-6.04,9.57) {\normalfont\bfseries\sffamily\strut\@titel};
-			    		\end{tikzpicture}
+			    	\end{tikzpicture}
 				}
-			\else%
-				\geometry{top=2.2cm,headheight=35pt,headsep=1em}
-				\AddToShipoutPictureBG{%
-					\begin{tikzpicture}
-				      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
-				      	\draw [highlight, fill] (-0.5\paperwidth,13.8) rectangle (0.5\paperwidth,13.4);
-				      	\node [anchor=east] at (9.64,13.75) {\includegraphics[height=1cm]{img/lll-logo}};
-				      	\node [anchor=south west] at (9.7,-13) {\rotatebox{90}{\tiny\sffamily\@organisation}};
-				      	\node [anchor=north west] at (-9.5,-14.3) {\footnotesize\@anmerkung};
-				      	\node [anchor=west,highlight,fill=white] at (-8.54,13.54) {\normalfont\bfseries\sffamily\strut\@titel};
-			    		\end{tikzpicture}
-				}
+			\else%                
+    			\iflayout@tiny%
+    				\geometry{a6paper,landscape,top=1.6cm,headheight=25pt,headsep=1em}
+    				\AddToShipoutPictureBG{%
+    					\begin{tikzpicture}
+    				      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
+    				      	\draw [highlight, fill] (-0.5\paperwidth, 4.51) rectangle (0.5\paperwidth, 4.23);
+    				      	\node [anchor=east] at (6.82,4.47) {\includegraphics[height=0.71cm]{img/lll-logo}};
+    				      	\node [anchor=south west] at (6.86,-4.54) {\rotatebox{90}{\tiny\sffamily\@organisation}};
+    				      	\node [anchor=north west] at (-6.72,-4.86) {\footnotesize\@anmerkung};
+    				      	\node [anchor=west,highlight,fill=white] at (-6.04,4.32) {\normalfont\bfseries\sffamily\strut\@titel};
+    			    	\end{tikzpicture}
+    				}
+                \else
+    				\geometry{top=2.2cm,headheight=35pt,headsep=1em}
+    				\AddToShipoutPictureBG{%
+    					\begin{tikzpicture}
+    				      	\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
+    				      	\draw [highlight, fill] (-0.5\paperwidth,13.8) rectangle (0.5\paperwidth,13.4);
+    				      	\node [anchor=east] at (9.64,13.75) {\includegraphics[height=1cm]{img/lll-logo}};
+    				      	\node [anchor=south west] at (9.7,-13) {\rotatebox{90}{\tiny\sffamily\@organisation}};
+    				      	\node [anchor=north west] at (-9.5,-14.3) {\footnotesize\@anmerkung};
+    				      	\node [anchor=west,highlight,fill=white] at (-8.54,13.54) {\normalfont\bfseries\sffamily\strut\@titel};
+    			    	\end{tikzpicture}
+    				}
+                \fi
 			\fi%
 		}
 	\or%scdigi
@@ -81,7 +98,7 @@
 			      	\node [anchor=south west] at (9.7,-13) {\rotatebox{90}{\tiny\sffamily\@organisation}};
 			      	\node [anchor=north west] at (-9.5,-14.3) {\footnotesize\@anmerkung};
 			      	\node [anchor=west, white] at (-8.68,13) {\normalfont\LARGE\bfseries\sffamily\strut\@titel};
-		    		\end{tikzpicture}
+		    	\end{tikzpicture}
 			}
 		}
 	\or%Schule
@@ -110,11 +127,7 @@
 %\DeclareOptionX*{\PackageWarning{lll-layout}{`\CurrentOption' ignored}} % geht...
 %\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrartcl}} % geht nicht...
 \ProcessOptionsX<layout>
-\iflayout@small
-	\PassOptionsToClass{12pt,a5paper}{scrartcl}
-\else
-	\PassOptionsToClass{12pt}{scrartcl}
-\fi
+\PassOptionsToClass{12pt}{scrartcl}
 \LoadClass{scrartcl} 
 
 \RequirePackage[ngerman]{babel}
@@ -132,7 +145,11 @@
 \iflayout@small
 	\RequirePackage[left=1.4cm, width=12.7cm, bottom=0.71cm]{geometry}
 \else
-	\RequirePackage[left=2cm,width=18cm,bottom=1cm]{geometry}
+    \iflayout@tiny
+    	\RequirePackage[left=1.4cm, width=12.7cm, bottom=0.71cm]{geometry}
+    \else
+	   \RequirePackage[left=2cm,width=18cm,bottom=1cm]{geometry}
+    \fi
 \fi
 \@setheader
 
