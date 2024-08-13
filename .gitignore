@@ -24,3 +24,8 @@
 *.synctex(busy)
 *.lsg
 *.code
+*.fls
+*.fdb_latexmk
+
+# ignore KIT-Templates
+LaTeX-Pakete/tex/latex/KIT*
