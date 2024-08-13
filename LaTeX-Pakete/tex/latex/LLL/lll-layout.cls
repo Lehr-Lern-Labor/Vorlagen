@@ -32,6 +32,9 @@
 	\fi
 }
 
+\newif\iflayout@faOld\layout@faOldfalse
+\define@boolkey{layout}{fa-old}[false]{\layout@faOldtrue}
+
 \def\val{}
 \def\nr{}
 \def\@setheader{}
@@ -110,7 +113,11 @@
 
 \RequirePackage[skins]{tcolorbox}
 \RequirePackage{multicol}
-\RequirePackage{fontawesome}
+\iflayout@faOld
+	\RequirePackage{fontawesome}
+\else
+	\RequirePackage{betterfontawesome5}
+\fi
 
 \RequirePackage[pdfborder={0 0 0}]{hyperref}
 
