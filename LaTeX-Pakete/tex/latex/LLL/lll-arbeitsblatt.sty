@@ -206,6 +206,13 @@
 	\auftrag[#1]{\color{highlight}\sffamily\Large#2}%
 }
 
+% ----- Neue Aufgabenseite
+\newcommand{\neu}[1]{%
+    \setcounter{aufgabe}{0}%
+    \newpage%
+    \titel{#1}%
+}
+
 % --------------------------------------------------------- QR-Code
 % ----- QR-Codes
 \newcommand{\qr}[2][]{%
