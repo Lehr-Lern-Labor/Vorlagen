@@ -1,5 +1,4 @@
 \RequirePackage{expl3}
-% \ProvidesExplPackage{betterfontawesome5}{2022/05/02}{5.15.4}{Font Awesome 5}
 \ProvidesPackage{betterfontawesome5}[2024/08/13 Makes fontawesome compatible with fontawesome5 -- even though some icons may have changed -- and provides commands to print all fontawesome and fontawesome5 icons.]
 \RequirePackage{fontawesome5}
 
@@ -226,8 +225,7 @@
 \def\faYCombinatorSquare{\faYCombinator}
 \def\faYcSquare{\faYCombinator}
 
-
-
+% Starred Variants
 \ExplSyntaxOn
 \RenewDocumentCommand\faArrows{s}{\fa__select:nw {arrows-alt\IfBooleanT{#1}{}}}
 \RenewDocumentCommand\faCloudDownload{s}{\fa__select:nw {cloud-download-alt\IfBooleanT{#1}{}}}
