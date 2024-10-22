@@ -247,6 +247,9 @@
 \newcommand{\@lsg}[1]{%
 	{\color{contrast}\Large{{\usefont{T1}{cmfr}{m}{n} #1}}}%
 }
+\newcommand{\@hand}[1]{%
+	{\color{black}\Large{{\usefont{T1}{cmfr}{m}{n} #1}}}%
+}
 % ----- Lücke
 \usepackage[normalem]{ulem}
 \setlength{\ULdepth}{1pt}
@@ -267,10 +270,21 @@
 }
 
 % ----- kariert
-
 \newlength{\offset}
 
-\newcommand{\kariert}[2][10]{
+\def\kariert{\@ifstar\@kariert\@@kariert}
+
+\newcommand{\@kariert}[2][10]{
+	\begin{tikzpicture}[lineatur, step=0.5cm]		
+		\pgfmathtruncatemacro\anzahl{(\linewidth-\pgflinewidth)/0.5cm} % max Kästchen / Zeile
+		\setlength{\offset}{0.5cm*\anzahl}
+		\setlength{\offset}{\linewidth-\offset}
+		\setlength{\offset}{0.5\offset}
+		\draw [xshift=-\offset, use as bounding box](-\offset,\offset) grid (\linewidth-\offset-\pgflinewidth,-0.5cm*#1-\offset);
+		\node [anchor = north west,text width=\anzahl*0.5cm,xshift=-\offset] {\linespread{0.98}\selectfont\@hand{\large#2}\par};
+	\end{tikzpicture}%
+}
+\newcommand{\@@kariert}[2][10]{
 	\begin{tikzpicture}[lineatur, step=0.5cm]		
 		\pgfmathtruncatemacro\anzahl{(\linewidth-\pgflinewidth)/0.5cm} % max Kästchen / Zeile
 		\setlength{\offset}{0.5cm*\anzahl}
@@ -282,7 +296,17 @@
 }
 
 % ----- liniert
-\newcommand{\liniert}[2][5]{
+\def\liniert{\@ifstar\@liniert\@@liniert}
+
+\newcommand{\@liniert}[2][5]{
+	\begin{tikzpicture}[lineatur]
+		\path[use as bounding box] (0,0) rectangle (\linewidth,-#1*0.9cm-0.5\pgflinewidth);
+		\node [anchor = north west, text width=\linewidth, yshift=-9pt] {\linespread{1.765}\selectfont\@hand{#2}\par};
+		\foreach \n in {1,...,#1} \draw (0,-0.9cm*\n) -- (\linewidth,-0.9cm*\n);
+	\end{tikzpicture}%
+}
+
+\newcommand{\@@liniert}[2][5]{
 	\begin{tikzpicture}[lineatur]
 		\path[use as bounding box] (0,0) rectangle (\linewidth,-#1*0.9cm-0.5\pgflinewidth);
 		\node [anchor = north west, text width=\linewidth, yshift=-9pt] {\ifloesung\linespread{1.765}\selectfont\@lsg{#2}\par\fi};
@@ -291,8 +315,16 @@
 }
 
 % ----- freier Platz
+\def\blanko{\@ifstar\@blanko\@@blanko}
 
-\newcommand{\blanko}[2][5]{
+\newcommand{\@blanko}[2][5]{
+	\begin{tikzpicture}[lineatur]
+		\path[use as bounding box] (0,0) rectangle (\linewidth,-#1*0.9cm-0.5\pgflinewidth);
+		\node [anchor = north west, text width=\linewidth, yshift=-9pt] {\linespread{1.765}\selectfont\@hand{#2}\par};
+	\end{tikzpicture}%
+}
+
+\newcommand{\@@blanko}[2][5]{
 	\begin{tikzpicture}[lineatur]
 		\path[use as bounding box] (0,0) rectangle (\linewidth,-#1*0.9cm-0.5\pgflinewidth);
 		\node [anchor = north west, text width=\linewidth, yshift=-9pt] {\ifloesung\linespread{1.765}\selectfont\@lsg{#2}\par\fi};
