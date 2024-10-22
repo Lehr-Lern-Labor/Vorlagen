@@ -55,7 +55,7 @@
 			}
 		}
 	\or%schule
-		\def\layout@theme{theme=scdigi}%
+		\def\layout@theme{theme=schule}%
 		\def\@setheader{
 			\geometry{top=2.2cm,headsep=1em,left=2cm}
 			\AddToShipoutPictureBG{%
