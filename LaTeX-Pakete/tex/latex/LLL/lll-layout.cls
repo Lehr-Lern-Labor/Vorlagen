@@ -128,12 +128,13 @@
 % ----- Infos
 \def\@title{Titel}
 \newcommand{\titel}[1]{\def\@titel{#1 \thepage}}
+\AtEndDocument{\ifnum\thepage=1\pagenumbering{gobble}\fi}
 
 \def\@organisation{}
 \newcommand{\organisation}[1]{\def\@organisation{#1}}
 
 \def\@autor{}
-\newcommand{\autor}[1]{\def\@autor{#1}}
+\newcommand{\autor}[1]{\def\@autor{#1 }}
 
 \def\@datum{\today}
 \newcommand{\datum}[1]{\def\@datum{#1}}
