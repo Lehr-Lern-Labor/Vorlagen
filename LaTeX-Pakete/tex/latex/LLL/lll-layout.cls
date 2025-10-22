@@ -24,6 +24,10 @@
 \define@boolkey{layout}{public}[true]{\layout@privatefalse}
 \define@boolkey{layout}{private}[true]{\layout@privatetrue}
 
+\newif\iflayout@nopage\layout@nopagefalse
+\define@boolkey{layout}{nopage}[true]{\layout@nopagetrue}
+\define@boolkey{layout}{page}[true]{\layout@nopagefalse}
+
 \newcommand{\private}[2][]{%
 	\iflayout@private%
 		#2
@@ -38,8 +42,23 @@
 \def\val{}
 \def\nr{}
 \def\@setheader{}
-\define@choicekey{layout}{layout}[\val\nr]{lll,schule}{%
+\define@choicekey{layout}{layout}[\val\nr]{lll,lllOld,schule}{%
 	\ifcase\nr\relax%lll
+		\def\layout@theme{theme=lll}%
+		\def\@setheader{%
+			\geometry{top=2.5cm,headheight=35pt,headsep=1em}
+			\AddToShipoutPictureBG{%
+				\begin{tikzpicture}
+					\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
+					\draw [highlight, fill] (-0.5\paperwidth,0.5\paperheight-1.35cm) rectangle (0.5\paperwidth,0.5\paperheight-1.75cm);
+					\node [anchor=south east,fill=white] at (0.5\paperwidth-0.86cm,0.5\paperheight-1.9cm) {\includegraphics[width=1.45cm]{img/LLL_elephant}};
+					\node [anchor=south west] at (0.5\paperwidth-0.8cm,-0.5\paperheight+1.845cm) {\rotatebox{90}{\tiny\sffamily\@organisation}};
+					\node [anchor=north west] at (-0.5\paperwidth+1.5cm,-0.5\paperheight+0.55cm) {\footnotesize\@anmerkung};
+					\node [anchor=west,highlight,fill=white] at (-0.5\paperwidth+1.5cm,0.5\paperheight-1.61cm) {\normalfont\bfseries\sffamily\strut\@titel};
+				\end{tikzpicture}
+			}
+		}
+	\or%lllOld
 		\def\layout@theme{theme=lll}%
 		\def\@setheader{%
 			\geometry{top=2.2cm,headheight=35pt,headsep=1em}
@@ -47,7 +66,7 @@
 				\begin{tikzpicture}
 					\useasboundingbox(-0.5\paperwidth,-0.5\paperheight) rectangle (0.5\paperwidth,0.5\paperheight);
 					\draw [highlight, fill] (-0.5\paperwidth,0.5\paperheight-1.05cm) rectangle (0.5\paperwidth,0.5\paperheight-1.45cm);
-					\node [anchor=east] at (0.5\paperwidth-0.86cm,0.5\paperheight-1.1cm) {\includegraphics[height=1cm]{img/lll-logo}};
+					\node [anchor=east] at (0.5\paperwidth-0.86cm,0.5\paperheight-1.1cm) {\includegraphics[height=1cm]{img/lll-logo-old}};
 					\node [anchor=south west] at (0.5\paperwidth-0.8cm,-0.5\paperheight+1.85cm) {\rotatebox{90}{\tiny\sffamily\@organisation}};
 					\node [anchor=north west] at (-0.5\paperwidth+1.5cm,-0.5\paperheight+0.55cm) {\footnotesize\@anmerkung};
 					\node [anchor=west,highlight,fill=white] at (-0.5\paperwidth+1.5cm,0.5\paperheight-1.31cm) {\normalfont\bfseries\sffamily\strut\@titel};
@@ -76,6 +95,9 @@
 		}
 	\fi
 }
+
+\RequirePackage{silence}
+\WarningFilter{latex}{Unused global option}
 
 %\DeclareOptionX*{\PackageWarning{lll-layout}{`\CurrentOption' ignored}} % geht...
 %\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrartcl}} % geht nicht...
@@ -128,7 +150,11 @@
 % ----- Infos
 \def\@title{Titel}
 \newcommand{\titel}[1]{\def\@titel{#1 \thepage}}
-\AtEndDocument{\ifnum\thepage=1\pagenumbering{gobble}\fi}
+\iflayout@nopage%
+	\pagenumbering{gobble}%
+\else%
+	\AtEndDocument{\ifnum\thepage=1\pagenumbering{gobble}\fi}
+\fi
 
 \def\@organisation{}
 \newcommand{\organisation}[1]{\def\@organisation{#1}}
